@@ -28,9 +28,6 @@
 (add-hook 'haskell-mode-hook
           (lambda () (define-key haskell-mode-map (kbd "M-.") 'haskell-mode-jump-to-def-or-tag)))
 
-; Set up interactive mode
-; (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-
 (custom-set-variables
  ; Set up hasktags (part 2)
  '(haskell-tags-on-save t)
@@ -41,7 +38,7 @@
  ; Set interpreter to be "cabal repl"
  '(haskell-process-type 'cabal-repl))
 
-; Add key combinations for haskell-mode
+; Add key combinations for interactive haskell-mode
 (add-hook 'haskell-mode-hook (lambda () 
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
