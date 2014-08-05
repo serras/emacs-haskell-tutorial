@@ -350,39 +350,40 @@ Finally, you may want to change the default color scheme in Emacs. From version 
 
 ## List of key bindings
 
-F8 -> jump to imports
-C-c C-. -> sort and align imports
-M-. -> jump to definition
-M-x haskell-mode-stylish-buffer -> format file
-C-c C-l -> load file in interpreter
-C-` -> navigate errors in the file (haskell-mode, interactive)
-C-c C-n C-t -> show type of expression (haskell-mode, interactive)
-C-c C-n C-t -> show info of expression (interactive)
-C-c C-n C-c -> run `cabal build` (interactive)
-C-c C-n c -> run any other `cabal` command (interactive)
-M-x haskell-debug -> start debugger
-M-n or Esc n -> go to next error or warning
-M-p or Esc p -> go to previous error or warning
-M-? or Esc ? -> show error or warning information
-C-c C-c -> change checking between GHC and HLint
-C-c C-t -> show type of expression (ghc-mod)
-C-c C-i -> show info of expression (ghc-mod)
-M-C-d or Esc C-d -> show documentation of expression
-C-c C-h -> search using Hoogle
-M-C-i or Esc C-i -> auto-completion
-M-C-m or Esc C-m -> insert module import
-C-c C-g -> initial code generation
-C-c C-s -> perform case split
-C-c < -> indent region shallower (ghc-mod)
-C-c > -> indent region deeper (ghc-mod)
-C-c M-n -> go to next hole
-C-c M-p -> go to previous hole
-C-c C-r -> refine hole
-C-c C-a -> automatically fill hole
-C-c C-r -> refactoring command prefix
-C-c C-r r -> rename refactoring
-M-a -> go to parent node (SHM)
-C-j -> newline and indent
+`F8`                              | jump to imports
+----------------------------------|-----------------
+`C-c C-.`                         | sort and align imports
+`M-.`                             | jump to definition
+`M-x haskell-mode-stylish-buffer` | format file
+`C-c C-l`                         | load file in interpreter
+`C-``                             | navigate errors in the file (`haskell-mode`, interactive)
+`C-c C-n C-t`                     | show type of expression (`haskell-mode`, interactive)
+`C-c C-n C-t`                     | show info of expression (interactive)
+`C-c C-n C-c`                     | run `cabal build` (interactive)
+`C-c C-n c`                       | run any other `cabal` command (interactive)
+`M-x haskell-debug`               | start debugger
+`M-n` or `Esc n`                  | go to next error or warning
+`M-p` or `Esc p`                  | go to previous error or warning
+`M-?` or `Esc ?`                  | show error or warning information
+`C-c C-c`                         | change checking between GHC and HLint
+`C-c C-t`                         | show type of expression (ghc-mod)
+`C-c C-i`                         | show info of expression (ghc-mod)
+`M-C-d` or `Esc C-d`              | show documentation of expression
+`C-c C-h`                         | search using Hoogle
+`M-C-i` or `Esc C-i`              | auto-completion
+`M-C-m` or `Esc C-m`              | insert module import
+`C-c C-g`                         | initial code generation
+`C-c C-s`                         | perform case split
+`C-c <`                           | indent region shallower (ghc-mod)
+`C-c >`                           | indent region deeper (ghc-mod)
+`C-c M-n`                         | go to next hole
+`C-c M-p`                         | go to previous hole
+`C-c C-r`                         | refine hole
+`C-c C-a`                         | automatically fill hole
+`C-c C-r`                         | refactoring command prefix
+`C-c C-r r`                       | rename refactoring
+`M-a`                             | go to parent node (SHM)
+`C-j`                             | newline and indent
 
 ## Installing all packages
 
