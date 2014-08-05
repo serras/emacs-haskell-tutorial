@@ -27,7 +27,7 @@ What this configuration is doing is adding a new repository of packages. These r
 To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows and Linux, and Command in Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes. Now you need to restart Emacs to get your new configuration running, so press `C-x C-c` to exit and then open Emacs again.
 
 A piece of advice: if you are used to the shortcuts `C-c`, `C-x`, `C-v` and `C-z` to copy, cut, paste and undo in your previous text editor, you can change the Emacs default to those by adding:
-```
+```lisp
 (cua-mode 1)
 ```
 to your Emacs initialization file. This will make transitioning to Emacs much easier (or at least, it did for me!).
@@ -42,7 +42,7 @@ Now that the repsitory is set up, installing `haskell-mode` is very easy:
 
 A piece of advice: most of the times you need to write something in Emacs, you can use Tab to autocomplete what you have written or show different possibilities. For example, if you press `M-x` and then write `package-` and press Tab, you will see all the commands related to package management popping up. If you then continue writting `r` and press Tab, the only option is `package-refresh-contents`, so it will be written for you ;)
 
-In order to use `haskell-mode`, you need to select one of the three (indentation modes)[https://github.com/haskell/haskell-mode/wiki/Indentation] that it provides. The indentation mode specifies how Enter and Tab will be treated when working with Haskell code. The most advanced one is called `haskell-indentation`. To enable it:
+In order to use `haskell-mode`, you need to select one of the three [indentation modes](https://github.com/haskell/haskell-mode/wiki/Indentation) that it provides. The indentation mode specifies how Enter and Tab will be treated when working with Haskell code. The most advanced one is called `haskell-indentation`. To enable it:
   * Open your personal configuration file. Remember, to do so press `M-:`, then write `(find-file user-init-file)` and finally press Enter.
   * Add a new line containing `(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)`.
   * Save the file with `C-x C-s`.
@@ -54,14 +54,14 @@ If you write Haskell code now, it should be syntax highligthed. If you press Tab
   * A major mode, in this case `Haskell` defines the global way of interacting with the file. Each file has one major mode associated, usually related to the programming language in which the file is written.
   * In addition, any amount of minor modes can be enabled. Those define smaller interactions which complement the major one. In this case, we have `Ind`, related to indentation. In many cases, you have a great deal of minor modes enabled per file.
 
-Before continuing, note that `haskell-mode` has many more features and options that the ones we are going to talk about. You can learn more about them in (its wiki)[https://github.com/haskell/haskell-mode/wiki].
+Before continuing, note that `haskell-mode` has many more features and options that the ones we are going to talk about. You can learn more about them in [its wiki](https://github.com/haskell/haskell-mode/wiki).
 
 ## Non interactive commands
 
 `haskell-mode` commands are divided into two groups, depending on whether they rely on an open interpreter session. To those who need such an interpreter, we will refer to as *interactive*. We have already seen that `haskell-mode` helps with indentation, but what else can it do in non interactive mode?
 
-The first thing it can do is help with `import`s. If you issue the command `M-x haskell-navigate-imports`, the editor will be focused on each of the import blocks in your file. Note that given the usefulness of this feature, the (`haskell-mode` wiki)[https://github.com/haskell/haskell-mode/wiki/Import-management]) suggests binding the `F8` key combination to run this command, by adding to your personal configuration file the following line:
-```
+The first thing it can do is help with `import`s. If you issue the command `M-x haskell-navigate-imports`, the editor will be focused on each of the import blocks in your file. Note that given the usefulness of this feature, the [`haskell-mode` wiki](https://github.com/haskell/haskell-mode/wiki/Import-management) suggests binding the `F8` key combination to run this command, by adding to your personal configuration file the following line:
+```lisp
 (add-hook 'haskell-mode-hook
           (lambda () (define-key haskell-mode-map [f8] 'haskell-navigate-imports)))
 ```
@@ -75,7 +75,7 @@ cabal install hasktags
 The first command ensures that you have update information of the libraries and tools available in Hackage, the Haskell community repository. The second command takes care of downloading and installing the `hasktags` program along with any dependencies.
 
 Then open the personal configuration file and add the following lines:
-```
+```lisp
 (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
 (add-to-list 'exec-path "~/.cabal/bin")
 (custom-set-variables '(haskell-tags-on-save t))
@@ -96,7 +96,7 @@ Note that Emacs needs to find the corresponding executable for this feature to w
 ## Interactive commands
 
 As usual, enabling a new feature in the Haskell mode involves changing some configuration file. In particular, we need to enable the interactive features and also define the key bindings to be used. Opening the configuration file is becoming normal for you now, so do so and add:
-```
+```lisp
 (custom-set-variables
   '(haskell-process-suggest-remove-import-lines t)
   '(haskell-process-auto-import-loaded-modules t)
@@ -115,10 +115,10 @@ As usual, enabling a new feature in the Haskell mode involves changing some conf
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 ```
-Note that the key bindings deviates from (the ones in the wiki)[https://github.com/haskell/haskell-mode/wiki/Haskell-Interactive-Mode-Setup]. The reason to do so is to avoid conflicts with key bindings in `ghc-mode` and HaRe.
+Note that the key bindings deviates from [the ones in the wiki](https://github.com/haskell/haskell-mode/wiki/Haskell-Interactive-Mode-Setup). The reason to do so is to avoid conflicts with key bindings in `ghc-mode` and HaRe.
 
 A piece of advice: if you are using a modern version of Cabal (more than 1.18), you should use its integrated REPL capabilities instead of `ghci`. This will ensure that your projects stay sandboxed, instead of polluting the global database. To enable it, add
-```
+```lisp
 (custom-set-variables '(haskell-process-type 'cabal-repl))
 ```
 to your personal configuration file.
@@ -129,7 +129,7 @@ You will get an interpreter, except in the case you file has some errors that th
 ```
 Add {-# LANGUAGE BangPatterns #-} to the top of the file? (y or n)
 ```
-If you have errors that cannot be fixed automatically, the key combination `C-``` will navigate around them.
+If you have errors that cannot be fixed automatically, the key combination `C-`` will navigate around them.
 
 Note that the interpreter is a normal Haskell one, so you can run any command you want in the `λ>` prompt. `haskell-mode` contains many small features which make it more appealing to look and traverse Haskell values. Most of them do not need any special setup, except for my favourite: presenting a variable. To enable it, install the `present` package:
 ```
