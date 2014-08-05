@@ -374,8 +374,8 @@ Finally, you may want to change the default color scheme in Emacs. From version 
 `M-C-m` or `Esc C-m`              | insert module import
 `C-c C-g`                         | initial code generation
 `C-c C-s`                         | perform case split
-`C-c <`                           | indent region shallower (ghc-mod)
-`C-c >`                           | indent region deeper (ghc-mod)
+`C-c <`                           | indent region shallower (`ghc-mod`)
+`C-c >`                           | indent region deeper (`ghc-mod`)
 `C-c M-n`                         | go to next hole
 `C-c M-p`                         | go to previous hole
 `C-c C-r`                         | refine hole
