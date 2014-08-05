@@ -147,16 +147,16 @@ Once you have started the session, your Haskell file can be queried in even more
 
 ## Debugging
 
-`haskell-mode` integrates with the debugger found in the GHC interpreter from version 7 on. You can find the documentation about this feature in (its page in the official wiki)[https://github.com/haskell/haskell-mode/wiki/Haskell-Interactive-Mode-Debugger].
+`haskell-mode` integrates with the debugger found in the GHC interpreter from version 7 on. You can find the documentation about this feature in [its page in the official wiki](https://github.com/haskell/haskell-mode/wiki/Haskell-Interactive-Mode-Debugger).
 
-# ghc-mod and HaRe
+# `ghc-mod`
 
-In contrast with `haskell-mode`, (`ghc-mod`)[http://www.mew.org/~kazu/proj/ghc-mod/en/] needs an extra executable to work. It is available on Hackage, so you can install it by directly writing on a terminal:
+In contrast with `haskell-mode`, [`ghc-mod`](http://www.mew.org/~kazu/proj/ghc-mod/en/) needs an extra executable to work. It is available on Hackage, so you can install it by directly writing on a terminal:
 ```
 cabal install ghc-mod
 ```
 The executable created must be on the search path of Emacs, as discussed before with other tools. Remember to include in your configuration file, if you haven't done it yet, the following lines:
-```
+```lisp
 (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
 (add-to-list 'exec-path "~/.cabal/bin")
 ```
@@ -165,7 +165,7 @@ The next step is installing the package in Emacs. To remind you of the process (
   * Write `ghc` as the name of the package to install
   * Et voilà!
 Finally, you need to configure `haskell-mode` to initialize `ghc-mod` each time you open a Haskell file. To do so, open your configuration file and insert:
-```
+```lisp
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
@@ -175,7 +175,7 @@ After restarting Emacs, each time you open a Haskell file, both `haskell-mode` a
 The main difference between `haskell-mode` and `ghc-mod` is that the former needs you to load files explicitly, wheread `ghc-mod` runs always in the background, checking and giving suggestions directly in the file. On my daily routine, I use `ghc-mod` to highlight and query information about my file, and only move to `haskell-mode` interactive features for testing in the interpreter or working with Cabal.
 
 In order to discover the features of `ghc-mod`, create a new empty file (for those newcomers to Emacs, this is achieved with `C-x C-f`). Now include the following content:
-```
+```haskell
 module Ejemplo2 where
 
 import Data.Ma
@@ -187,7 +187,7 @@ And save the file. If `ghc-mod` is correctly loaded, you should see a red line u
   * Navigate through the error using `M-n` or `Esc n` (both for the next error) and `M-p` or `Esc p` (both for the previous one). Then press `M-?` and the error will be shown in a new buffer.
 Correct the error by changing `Ma` to `Map` and save the file (remember, `C-x C-s`). The `ghc-mod` extension will check the file again (it does so only when saving a file) and now highlights the lines in a yellow color with a `?` symbol at the margin. This means that the lines have warnings associated with them. You can navigate through them as you did with errors. But note that warning will only be shown if no errors are present in the file.
 
-Apart from the GHC compiler, there is another tools that helps writing good Haskell code, namely (HLint)[http://community.haskell.org/~ndm/hlint/]. HLint provides suggestions to write more idiomatic and concise code. To use it, you need to install the corresponding executable:
+Apart from the GHC compiler, there is another tools that helps writing good Haskell code, namely [HLint](http://community.haskell.org/~ndm/hlint/). HLint provides suggestions to write more idiomatic and concise code. To use it, you need to install the corresponding executable:
 ```
 cabal install hlint
 ```
@@ -197,7 +197,7 @@ In a similar way to `haskell-mode`, you can query about the type or information 
 
 If you need more information about an identifier, you can ask `ghc-mod` to show the corresponding documentation in the browser. Just focus over the expression you can to know more about and press `Esc C-d` (`M-C-d` should also work, but it is usually captured by window managers in Linux systems). Your default browser will be executed showing the on-line documentation of the module or identifier that you requested.
 
-Sometimes you don't know the name of the function you need to use, but have some information like its type. In that case, you can use (Hoogle)[http://www.haskell.org/hoogle/] to search in Hackage for functions. In order to do so locally, you need to install the corresponding helper executable and populate its database by running in a terminal:
+Sometimes you don't know the name of the function you need to use, but have some information like its type. In that case, you can use [Hoogle](http://www.haskell.org/hoogle/) to search in Hackage for functions. In order to do so locally, you need to install the corresponding helper executable and populate its database by running in a terminal:
 ```
 cabal install hoogle
 hoogle data
@@ -211,35 +211,35 @@ Now, at any moment you can press `C-c C-h` and query Hoogle for the information 
 In some cases, the problem is that you have used a name, but haven't included the corresponding module import. In many cases, even the compiler hints you which is the line to include. `ghc-mod` integrates into this feedback loop and by running issuing `M-C-m` or `Esc C-m` you can insert automatically the import. Note that this augments the functionality in `haskell-mode` by not needing to load the file to make these small fixes.
 
 In many cases, you can derive the shape of a function or type class instance from the signature or declaration. So, it would be nice to have commands which given that information generates some initial skeleton. Well, `ghc-mod` includes it! As an example, include in your file a new data type and the declaration of a new instance:
-```
+```haskell
 data ExampleType = ExampleType Int Int
 
 instance Eq ExampleType where
 ```
 Now move to the `instance` declaration and press `C-c C-g` (from code *g*eneration). Automagically, the declaration is expanded into:
-```
+```haskell
 instance Eq ExampleType where
   x == y = _body
   x /= y = _body
 ```
 Code generation works also with function signatures. For example, let's write the signature of a `fmap`-like function for `Maybe`s:
-```
+```haskell
 maybeMap :: Maybe a -> (a -> b) -> Maybe b
 ```
 Press `C-c C-g` once again and the skeleton of the function appears:
-```
+```haskell
 maybeMap x f = _maybeMap_body
 ```
 Note that this code generation assumes that you want to generate functions its arguments fully stated. That is, if you prefer to write `maybeMap x = ...` and return a functional value, you have to write the skeleton yourself.
 
 This functionality does not finish here. Apart from code generation, `ghc-mod` can also generate the neccessary pattern matching, by splitting a variable into its possible constructors. For example, stay over the `x` on `maybeMap` and press `C-c C-s` (from *s*plit). Automagically, the code becomes:
-```
+```haskell
 maybeMap Nothing  f = _maybeMap_body
 maybeMap (Just x) f = _maybeMap_body
 ```
 You can split on every algebraic data type, be it from a library or defined in your own files. Note that in the case of a data type defined as a record, the match will be written using record syntax with all the fields explicitly shown.
 
-Another task where `ghc-mod` adds some niceties to `haskell-mode` is indentation of blocks. By using `C-c <` and `C-c >` you can indent a region less or more, respectively, respecting Haskell layout rules. Note that below we discuss `structured-haskell-mode`, which provides a more powerful way to deal with Haskell code respecting the scoping and indentation rules. Personally, I recommend it to `ghc-mod`.
+Another task where `ghc-mod` adds some niceties to `haskell-mode` is indentation of blocks. By using `C-c <` and `C-c >` you can indent a region less or more, respectively, respecting Haskell layout rules. Note that below we discuss `structured-haskell-mode`, which provides a more powerful way to deal with Haskell code respecting the scoping and indentation rules.
 
 ## Working with holes
 
@@ -257,17 +257,17 @@ Relevant bindings include
 Note that the previous output is cropped from the one given by GHC, which contains much more information, along with position of the identifiers. You will get all that information while working with `ghc-mod`.
 
 Of course, your aim should be to get rid of all holes. Type-oriented programming is a good-way to do so: realize part of the expression by looking at the type given in the hole message and add things to the hole until finished. To support this loop, `ghc-mod` includes a refine command, available at the key combination `C-c C-f`. When you press this over a hole, the system asks for an expression to refine with, and changes the hole with the expression given followed as many holes as neccessary to fulfill the corresponding type. For example, if in the second equation of `maybeMap`:
-```
+```haskell
 maybeMap (Just x) f = _maybeMap_body
 ```
 you refine using `Just`, the code changes to:
-```
+```haskell
 maybeMap (Just x) f = Just _maybeMap_body_1
 ```
 because you still need a value for the function to return what you expect.
 
-This is nice, but in some cases `ghc-mod` can do even more for you: it can write your whole expression! It does so by leveraging the power of (Djinn)[http://hackage.haskell.org/package/djinn]. For example, let's go back to the definition of `maybeMap` after splitting:
-```
+This is nice, but in some cases `ghc-mod` can do even more for you: it can write your whole expression! It does so by leveraging the power of [Djinn](http://hackage.haskell.org/package/djinn). For example, let's go back to the definition of `maybeMap` after splitting:
+```haskell
 maybeMap Nothing  f = _maybeMap_body
 maybeMap (Just x) f = _maybeMap_body
 ```
@@ -277,50 +277,50 @@ Note that in order to prevent non-termination, automatic completion will not loo
 
 ## Refactoring with HaRe
 
-We have talked about changing the code on a file automatically, but none of these changes could be considered a real refactoring step. However, there is a tool called (HaRe)[https://github.com/alanz/HaRe], which is integrates with `ghc-mod` and provides those features.
+We have talked about changing the code on a file automatically, but none of these changes could be considered a real refactoring step. However, there is a tool called [HaRe](https://github.com/alanz/HaRe), which is integrates with `ghc-mod` and provides those features.
 
-Note: HaRe does not work at the moment of writing on GHC 7.8 nor its package is yet uploaded to MELPA. This tutorial will be updated with the entire installation procedure when those problems are fixed. Until now, follow the instuctions in the (official webpage)[https://github.com/alanz/HaRe] up to the first block on Emacs integration.
+Note: HaRe does not work at the moment of writing on GHC 7.8 nor its package is yet uploaded to MELPA. This tutorial will be updated with the entire installation procedure when those problems are fixed. Until now, follow the instuctions in the [official webpage](https://github.com/alanz/HaRe) up to the first block on Emacs integration.
 
 HaRe must be loaded at the same moment in which `ghc-mod` is. To do so, open your configuration file and change the line reading:
-```
+```lisp
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 ```
 to read:
-```
+```lisp
 (add-hook 'haskell-mode-hook (lambda () (ghc-init) (hare-init)))
 ```
 After doing so, at every Haskell file you will see a new menu called *Refactor*, containing the current refactorings. In each menu item you can find the corresponding key combinations: notice that all start with `C-c C-r`. Since the list of refactorings grow each day, the refrain here from explaining all of them and focus on one specific case.
 
-The most common case for refactoring is renaming. This is done by issuing the command `C-c C-r r` over the element to rename. The system asks for the new name, and then generates the refactoring script. Note that the refactoring is *not directly applied*. Instead, a new buffer shows the modifications that would be done in the files belonging to your project, and you can accept or decline them. This buffer works under the (`ediff` mode)[https://www.gnu.org/software/emacs/manual/html_node/ediff/].
+The most common case for refactoring is renaming. This is done by issuing the command `C-c C-r r` over the element to rename. The system asks for the new name, and then generates the refactoring script. Note that the refactoring is *not directly applied*. Instead, a new buffer shows the modifications that would be done in the files belonging to your project, and you can accept or decline them. This buffer works under the [`ediff` mode](https://www.gnu.org/software/emacs/manual/html_node/ediff/).
 
-# structured-haskell-mode
+# `structured-haskell-mode`
 
 Working with Haskell is usually wuite aesthetically appealing because of the layout rule (remember that this rule is the one delimiting the blocks and scopes in Haskell code). However, maintaining the rule can become cumbersome after some time, especially if you are editing something in an inner part of your syntax, which makes the rest of the block become unaligned.
 
-To handle Haskell code in a way that respects Haskell layout rule and conventions, we have (`structured-haskell-mode`)[https://github.com/chrisdone/structured-haskell-mode], in short SHM.
+To handle Haskell code in a way that respects Haskell layout rule and conventions, we have [`structured-haskell-mode`](https://github.com/chrisdone/structured-haskell-mode), in short SHM.
 
 Installing it is as simple as the rest of packages in this article, execute `M-x package-install` and select `shm`.  In addition, you need the `structured-haskell-mode` package from Hackage:
 ```
 cabal install structured-haskell-mode
 ```
 It is important now to tell `haskell-mode` that the indentation should be handled via SHM instead of itself. To do so, open your configuration file, and change the line resembling:
-```
+```lisp
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 ```
 to use SHM instead:
-```
+```lisp
 (add-hook 'haskell-mode-hook 'structured-haskell-mode)
 ```
 
 Note that now when opening a Haskell file you see a new minor mode, represented by `SHM` in the bottom of the buffer. If the file is in syntactically-correct Haskell, when staying over an expression you should see it highlighted with a different background. This is the *current node* in which SHM is working. If you want to select a larger portion of the code, you can enlarge the scope of your highlighting using `M-a`.
 
 You will notice that when you write some code, such as the beginning of a `case` statement, the code changes to include a complete Haskell expression instead, with holes to fill inside. Try to do so, and you will get something like:
-```
+```haskell
 case undefined of
   _ -> undefined
 ```
 How you would fill now the structure is by moving to the `undefined` and `_` places and adding some code, such as:
-```
+```haskell
 case n of
   0 -> 1
 ```
@@ -328,7 +328,7 @@ After doing so, instead of pressing Enter and then Tab, press `C-j` (which is kn
 
 Furthermore, if you know try to add something new before the `case` statement, such a call to `maybeMap` defined previously, you will notice that the entire `case` block moves! In that way, the nice layout you had is respected :)
 
-Note than SHM contains some extra commands to manipulate Haskell programs in an easier way, apart from the basics `M-a`, `C-j` and autocompletion. You can read the entire list, along with graphical explanations, at its (website)[https://github.com/chrisdone/structured-haskell-mode].
+Note than SHM contains some extra commands to manipulate Haskell programs in an easier way, apart from the basics `M-a`, `C-j` and autocompletion. You can read the entire list, along with graphical explanations, at its [website](https://github.com/chrisdone/structured-haskell-mode).
 
 My piece of advice is that SHM can be difficult to master at first. If you feel like you need a more normal editor, just revert back the changes to your configuration file and use normal indentation from `haskell-mode`.
 
@@ -336,15 +336,15 @@ My piece of advice is that SHM can be difficult to master at first. If you feel 
 
 There are tons of other packages available for Emacs. Without any further intention, I would like to speak about three packages which I feel that integrate very well with Haskell programming.
 
-The first one is (`rainbow-delimiters`)[https://github.com/jlr/rainbow-delimiters]. Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a warning, red color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
-```
+The first one is [`rainbow-delimiters`](https://github.com/jlr/rainbow-delimiters). Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a warning, red color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
+```lisp
 (require 'rainbow-delimiters
 (global-rainbow-delimiters-mode)
 ```
 
-The second one is (Magit)[http://magit.github.io/], which provides Git integration with Emacs. It is also available in MELPA, you it's only at one `M-x package-install` of you. One nice thing is that it shows the Git status of your file in the bottom of the buffer. Magit is a very big package, so the reader is suggested to look at its official webpage.
+The second one is [Magit](http://magit.github.io/), which provides Git integration with Emacs. It is also available in MELPA, you it's only at one `M-x package-install` of you. One nice thing is that it shows the Git status of your file in the bottom of the buffer. Magit is a very big package, so the reader is suggested to look at its official webpage.
 
-Finally, you may want to change the default color scheme in Emacs. From version 24 on, this is done very easily using its theme support. For example, I am quite a fan of the (Solarized themes)[http://ethanschoonover.com/solarized]. In MELPA you can find a lot of these and instructions on how to install them.
+Finally, you may want to change the default color scheme in Emacs. From version 24 on, this is done very easily using its theme support. For example, I am quite a fan of the [Solarized themes](http://ethanschoonover.com/solarized). In MELPA you can find a lot of these and instructions on how to install them.
 
 # Summary
 
