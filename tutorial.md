@@ -9,15 +9,15 @@ Note that the support for Haskell is not provided by a monolithical extension, b
 The first thing you need to do is getting Emacs up and running in your computer. Note that you need at least version 23 (which is any case is quite old, the current one is 24.x). How to do this is easy in any operating system you use:
 
   * In Linux, you usually need to install the "emacs" package from your package management system. In Ubuntu or Debian, you can do this graphically using either the Software Center or Synaptic, or using the command line by issuing `sudo apt-get install emacs`.
-  * In Mac OS, download (Emacs for OS X)[http://emacsformacosx.com/], and install like any other application.
-  * In Windows you can use (NTEmacs)[http://ntemacs.sourceforge.net/].
+  * In Mac OS, download [Emacs for OS X](http://emacsformacosx.com/), and install like any other application.
+  * In Windows you can use [NTEmacs](http://ntemacs.sourceforge.net/).
 
 Given the huge range of extensibility that Emacs provides, instead of a graphical interface sometimes it becomes neccessary to change options by writing in your personal configuration file. So, open Emacs, press `M-:`, then write `(find-file user-init-file)` and finally push Enter. The configuration file will appear in front of you.
 
 Wait, wait! What is this `M-:` thingy means? This is how key combinations are represented in Emacs. In particular, `M` stands for the meta key, which means Alt in Linux or Windows systems, or the Option key if running in Mac OS X. The Emacs culture involves using many of these key combinations to perform operations in a fast way. But don't get scared, you always have the menu and the toolbar to look for commands, while you are learning the key combinations.
 
 Ok, let's move on with the configuration. In the file that has just been open, past the following content:
-```
+```lisp
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
