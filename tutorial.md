@@ -216,7 +216,7 @@ data ExampleType = ExampleType Int Int
 
 instance Eq ExampleType where
 ```
-Now move to the `instance` declaration and press `C-c C-g` (from code *g*eneration). Automagically, the declaration is expanded into:
+Now move to the `instance` declaration and press `C-u M-t`. Automagically, the declaration is expanded into:
 ```haskell
 instance Eq ExampleType where
   x == y = _body
@@ -226,13 +226,13 @@ Code generation works also with function signatures. For example, let's write th
 ```haskell
 maybeMap :: Maybe a -> (a -> b) -> Maybe b
 ```
-Press `C-c C-g` once again and the skeleton of the function appears:
+Press `C-u M-t` once again and the skeleton of the function appears:
 ```haskell
 maybeMap x f = _maybeMap_body
 ```
 Note that this code generation assumes that you want to generate functions its arguments fully stated. That is, if you prefer to write `maybeMap x = ...` and return a functional value, you have to write the skeleton yourself.
 
-This functionality does not finish here. Apart from code generation, `ghc-mod` can also generate the neccessary pattern matching, by splitting a variable into its possible constructors. For example, stay over the `x` on `maybeMap` and press `C-c C-s` (from *s*plit). Automagically, the code becomes:
+This functionality does not finish here. Apart from code generation, `ghc-mod` can also generate the neccessary pattern matching, by splitting a variable into its possible constructors. For example, stay over the `x` on `maybeMap` and press `M-t` (to complete *t*emplate). Automagically, the code becomes:
 ```haskell
 maybeMap Nothing  f = _maybeMap_body
 maybeMap (Just x) f = _maybeMap_body
@@ -350,8 +350,9 @@ Finally, you may want to change the default color scheme in Emacs. From version 
 
 ## List of key bindings
 
+Key binding                       | Description
+----------------------------------|-----------------------------------------------------------
 `F8`                              | jump to imports
-----------------------------------|-----------------
 `C-c C-.`                         | sort and align imports
 `M-.`                             | jump to definition
 `M-x haskell-mode-stylish-buffer` | format file
@@ -372,13 +373,13 @@ Finally, you may want to change the default color scheme in Emacs. From version 
 `C-c C-h`                         | search using Hoogle
 `M-C-i` or `Esc C-i`              | auto-completion
 `M-C-m` or `Esc C-m`              | insert module import
-`C-c C-g`                         | initial code generation
-`C-c C-s`                         | perform case split
+`C-u M-t`                         | initial code generation
+`M-t`                             | perform case split
 `C-c <`                           | indent region shallower (`ghc-mod`)
 `C-c >`                           | indent region deeper (`ghc-mod`)
 `C-c M-n`                         | go to next hole
 `C-c M-p`                         | go to previous hole
-`C-c C-r`                         | refine hole
+`C-c C-f`                         | refine hole
 `C-c C-a`                         | automatically fill hole
 `C-c C-r`                         | refactoring command prefix
 `C-c C-r r`                       | rename refactoring
