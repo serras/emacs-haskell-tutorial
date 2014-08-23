@@ -1,3 +1,20 @@
+### Index
+
+* [Why Haskell on Emacs?](#why-haskell-on-emacs)
+* [Intalling and setting up Emacs](#installing-and-setting-up-emacs)
+* [`haskell-mode`](#haskell-mode)
+  * [Non interactive commands](#non-interactive-commands)
+  * [Interactive commands](#interactive-commands)
+  * [Debugging](#debugging)
+* [`ghc-mod`](#ghc-mod)
+  * [Insertion commands](#insertion-commands)
+  * [Working with holes](#working-with-holes)
+  * [Completion with `company-mode`](#completion-with-company-mode)
+  * [Refactoring with HaRe](#refactoring-with-hare)
+* [`structured-haskell-mode`](#structured-haskell-mode)
+* [Other niceties](#other-niceties)
+* [Summary](#summary)
+
 # Why Haskell on Emacs?
 
 Emacs is a text editor with an amazing support for extensions. Many people have built add-ons for Emacs to deal with everything from e-mail to version control or agenda planning, but it excels in providing good support for programming. Haskell has actually an amazing support, which integrates highlighting, querying information, building with Cabal and even refactoring!
@@ -8,15 +25,15 @@ Note that the support for Haskell is not provided by a monolithical extension, b
 
 The first thing you need to do is getting Emacs up and running in your computer. Note that you need at least version 23 (which is any case is quite old, the current one is 24.x). How to do this is easy in any operating system you use:
 
-  * In Linux, you usually need to install the "emacs" package from your package management system. In Ubuntu or Debian, you can do this graphically using either the Software Center or Synaptic, or using the command line by issuing `sudo apt-get install emacs`.
+  * In Linux, you usually need to install the `emacs` package from your package management system. In Ubuntu or Debian, you can do this graphically using either the Software Center or Synaptic, or using the command line by issuing `sudo apt-get install emacs`.
   * In Mac OS, download [Emacs for OS X](http://emacsformacosx.com/), and install like any other application.
   * In Windows you can use [NTEmacs](http://ntemacs.sourceforge.net/).
 
 Given the huge range of extensibility that Emacs provides, instead of a graphical interface sometimes it becomes neccessary to change options by writing in your personal configuration file. So, open Emacs, press `M-:`, then write `(find-file user-init-file)` and finally push Enter. The configuration file will appear in front of you.
 
-Wait, wait! What is this `M-:` thingy means? This is how key combinations are represented in Emacs. In particular, `M` stands for the meta key, which means Alt in Linux or Windows systems, or the Option key if running in Mac OS X. The Emacs culture involves using many of these key combinations to perform operations in a fast way. But don't get scared, you always have the menu and the toolbar to look for commands, while you are learning the key combinations.
+Wait, wait! What is this `M-:` thingy means? This is how key combinations are represented in Emacs. In particular, `M` stands for the meta key, which means Alt in Linux or Windows systems, or the Option key if running in Mac OS X. When followed by a dash `-`, keys must be pressed together. Thus, you should press the meta key corresponding to your system and at the same time those corresponding to `:`. In my computer, this means `Alt+Shift+;`. The Emacs culture involves using many of these key combinations to perform operations in a fast way. But don't get scared, you always have the menu and the toolbar to look for commands, while you are learning the key combinations.
 
-Ok, let's move on with the configuration. In the file that has just been open, past the following content:
+Ok, let's move on with the configuration. In the file that has just been open, paste the following content:
 ```lisp
 (require 'package)
 (add-to-list 'package-archives
@@ -202,7 +219,7 @@ Sometimes you don't know the name of the function you need to use, but have some
 cabal install hoogle
 hoogle data
 ```
-Now, at any moment you can press `C-c C-h` and query Hoogle for the information youu want.
+Now, at any moment you can press `C-c C-h` and query Hoogle for the information you want.
 
 ## Insertion commands
 
@@ -274,6 +291,8 @@ maybeMap (Just x) f = _maybeMap_body
 If you press `C-c C-a` in each of the holes, several options for the code to be written there will be shown, including `Nothing` in the first case, and `Nothing` and `Just x` in the second case. You just need to select the code you want to include from a list, and it will be automatically completed. Note that this functionality becomes very handy when you need to work with expressions involving currying and tupling, because it takes care of obtaining a correctly-typed expression for you.
 
 Note that in order to prevent non-termination, automatic completion will not look for recursive definitions. However, you can still take advantage of `ghc-mod` by refining those places where recursion is needed, and then using automatic completion for simpler holes.
+
+## Completion with `company-mode`
 
 ## Refactoring with HaRe
 
