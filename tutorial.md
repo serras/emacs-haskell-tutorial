@@ -1,3 +1,5 @@
+# Using Emacs for Haskell development
+
 Emacs is a text editor with an amazing support for extensions. Many people have built add-ons for Emacs to deal with everything from e-mail to version control or agenda planning, but it excels in providing good support for programming. Haskell has actually an amazing support, which integrates highlighting, querying information, building with Cabal and even refactoring!
 
 Note that the support for Haskell is not provided by a monolithical extension, but rather by a set of them with different features and also with different sets of requirements. From my point of view, `haskell-mode` and `ghc-mod` are a must, and work fairly well together.
@@ -21,7 +23,7 @@ Note that the support for Haskell is not provided by a monolithical extension, b
   * [List of key bindings](#list-of-key-bindings)
   * [Installing all packages](#installing-all-packages)
 
-# Installing and setting up Emacs
+## Installing and setting up Emacs
 
 The first thing you need to do is getting Emacs up and running in your computer. Note that you need at least version 23 (which is any case is quite old, the current one is 24.x). How to do this is easy in any operating system you use:
 
@@ -50,13 +52,13 @@ A piece of advice: if you are used to the shortcuts `C-c`, `C-x`, `C-v` and `C-z
 ```
 to your Emacs initialization file. This will make transitioning to Emacs much easier (or at least, it did for me!).
 
-## Keeping packages up-to-date
+### Keeping packages up-to-date
 
 One nice thing about using the integrated Emacs package manager is that you can easily upgrade your installed packages to the latest version. To do so, go to the full package view by issuing `M-x package-list-packages`. You will get a list of all packages that you many install from MELPA. The first thing to do is refreshing that list to the latest version, something you can do by either pressing `r` or going to the _Package_ menu and selecting _Refresh Package List_.
 
 Now Emacs knows of all latest versions. The next step is marking all the upgradeable packages to be installed. You can do so via the _Package_ menu, in _Mark Upgradeable Packages_, or just pressing `U`. Finally, you need to execute the install plan either from the same menu, choosing the _Execute Actions_ item, or pressing `x`. Emacs will ask for confirmation, and will then download and install the new versions and remove the previous ones. Restart Emacs to allow the changes to make effect.
 
-# `haskell-mode`
+## `haskell-mode`
 
 Now that the repsitory is set up, installing `haskell-mode` is very easy:
   * Press `M-x`, then write `package-refresh-contents`. In the bottom of your Emacs window you should see written `M-x package-refresh-contents`. Then press Enter: this will update the list of available packages in the repositories.
@@ -80,7 +82,7 @@ If you write Haskell code now, it should be syntax highligthed. If you press Tab
 
 Before continuing, note that `haskell-mode` has many more features and options that the ones we are going to talk about. You can learn more about them in [its wiki](https://github.com/haskell/haskell-mode/wiki).
 
-## Non interactive commands
+### Non interactive commands
 
 `haskell-mode` commands are divided into two groups, depending on whether they rely on an open interpreter session. To those who need such an interpreter, we will refer to as *interactive*. We have already seen that `haskell-mode` helps with indentation, but what else can it do in non interactive mode?
 
@@ -117,7 +119,7 @@ cabal install stylish-haskell
 ```
 Note that Emacs needs to find the corresponding executable for this feature to work. In particular, if you haven't done it previously, you need to add the first two lines referred to in the `hasktags` section above (those dealing with paths). Any way, by using the command `M-x haskell-mode-stylish-buffer`, you can format your Haskell file in a nice way :)
 
-## Interactive commands
+### Interactive commands
 
 As usual, enabling a new feature in the Haskell mode involves changing some configuration file. In particular, we need to enable the interactive features and also define the key bindings to be used. Opening the configuration file is becoming normal for you now, so do so and add:
 ```lisp
@@ -169,11 +171,11 @@ Once you have started the session, your Haskell file can be queried in even more
 
 `haskell-mode` also integrates with Cabal in many interesting ways. Issuing the command `C-c C-n C-c` will run `cabal build` in your project and show the output messages in the interpreter window. Or if you want to run any other command, use `C-c C-n c` and you will be asked for the command. So now you have a complete development environment which builds and highlights errors for you! Actually, the support for Cabal is even greater, because `haskell-mode` also integrates a mode for Cabal files.
 
-## Debugging
+### Debugging
 
 `haskell-mode` integrates with the debugger found in the GHC interpreter from version 7 on. You can find the documentation about this feature in [its page in the official wiki](https://github.com/haskell/haskell-mode/wiki/Haskell-Interactive-Mode-Debugger).
 
-# `ghc-mod`
+## `ghc-mod`
 
 In contrast with `haskell-mode`, [`ghc-mod`](http://www.mew.org/~kazu/proj/ghc-mod/en/) needs an extra executable to work. It is available on Hackage, so you can install it by directly writing on a terminal:
 ```
@@ -228,7 +230,7 @@ hoogle data
 ```
 Now, at any moment you can press `C-c C-h` and query Hoogle for the information you want.
 
-## Insertion commands
+### Insertion commands
 
 `ghc-mod` also helps you in writing your code. At any point, you can press either `Esc Tab` or `M-C-i` (both key combinations are equivalent) in a not-finished name and a list of possible completions will be shown. In the new buffer, select a completion and press Enter or click on it to insert it. Of course, in case only one possibility is available, it will be automatically inserted.
 
@@ -265,7 +267,7 @@ You can split on every algebraic data type, be it from a library or defined in y
 
 Another task where `ghc-mod` adds some niceties to `haskell-mode` is indentation of blocks. By using `C-c <` and `C-c >` you can indent a region less or more, respectively, respecting Haskell layout rules. Note that below we discuss `structured-haskell-mode`, which provides a more powerful way to deal with Haskell code respecting the scoping and indentation rules.
 
-## Completion with `company-ghc`
+### Completion with `company-ghc`
 
 As stated above, `ghc-mod` provides a simple completion mechanism with `Esc Tab`: it uses an integrated feature of Emacs, called the minibuffer, which is not very featureful. Instead, you can add [`company-ghc`](https://github.com/iquiw/company-ghc) to your mix and get nicer graphical completion features.
 
@@ -295,7 +297,7 @@ Now, the moment for magic has come! Restart Emacs and open any Haskell file. Wri
 
 If you took some time to install and download the data for Hoogle, a nice extra comes bundled with `company-ghc`. While navigating through the completion possibilities, you can press `F1` and get the documentation for the corresponding element. The information will disappear once you chosse an option. 
 
-## Working with holes
+### Working with holes
 
 If you are using `ghc-mod` on GHC 7.8 or greater, and ran the code generation and splitting, you may have noticed that some strange elements starting with an underscore appear. These are *holes*, the way in which to tell the compiler that you know that an expression is missing, but still want it to tell you about possible errors or warning. The nice thing is that GHC spits out a lot of information about each hole in a file, and `ghc-mod` benefits from that.
 
@@ -329,7 +331,7 @@ If you press `C-c C-a` in each of the holes, several options for the code to be 
 
 Note that in order to prevent non-termination, automatic completion will not look for recursive definitions. However, you can still take advantage of `ghc-mod` by refining those places where recursion is needed, and then using automatic completion for simpler holes.
 
-## Refactoring with HaRe
+### Refactoring with HaRe
 
 We have talked about changing the code on a file automatically, but none of these changes could be considered a real refactoring step. However, there is a tool called [HaRe](https://github.com/alanz/HaRe), which is integrates with `ghc-mod` and provides those features.
 
@@ -347,7 +349,7 @@ After doing so, at every Haskell file you will see a new menu called *Refactor*,
 
 The most common case for refactoring is renaming. This is done by issuing the command `C-c C-r r` over the element to rename. The system asks for the new name, and then generates the refactoring script. Note that the refactoring is *not directly applied*. Instead, a new buffer shows the modifications that would be done in the files belonging to your project, and you can accept or decline them. This buffer works under the [`ediff` mode](https://www.gnu.org/software/emacs/manual/html_node/ediff/).
 
-# `structured-haskell-mode`
+## `structured-haskell-mode`
 
 Working with Haskell is usually wuite aesthetically appealing because of the layout rule (remember that this rule is the one delimiting the blocks and scopes in Haskell code). However, maintaining the rule can become cumbersome after some time, especially if you are editing something in an inner part of your syntax, which makes the rest of the block become unaligned.
 
@@ -386,7 +388,7 @@ Note than SHM contains some extra commands to manipulate Haskell programs in an 
 
 My piece of advice is that SHM can be difficult to master at first. If you feel like you need a more normal editor, just revert back the changes to your configuration file and use normal indentation from `haskell-mode`.
 
-# Other niceties
+## Other niceties
 
 There are tons of other packages available for Emacs. Without any further intention, I would like to speak about three packages which I feel that integrate very well with Haskell programming.
 
@@ -400,9 +402,9 @@ The second one is [Magit](http://magit.github.io/), which provides Git integrati
 
 Finally, you may want to change the default color scheme in Emacs. From version 24 on, this is done very easily using its theme support. For example, I am quite a fan of the [Solarized themes](http://ethanschoonover.com/solarized). In MELPA you can find a lot of these and instructions on how to install them.
 
-# Summary
+## Summary
 
-## List of key bindings
+### List of key bindings
 
 Key binding                       | Description
 ----------------------------------|-----------------------------------------------------------
@@ -441,7 +443,7 @@ wait                              | show completions (`company-ghc`)
 `M-a`                             | go to parent node (SHM)
 `C-j`                             | newline and indent
 
-## Installing all packages
+### Installing all packages
 
 This is the Haskell part of the modes using Cabal:
 ```
