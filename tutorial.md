@@ -1,7 +1,11 @@
-### Index
+Emacs is a text editor with an amazing support for extensions. Many people have built add-ons for Emacs to deal with everything from e-mail to version control or agenda planning, but it excels in providing good support for programming. Haskell has actually an amazing support, which integrates highlighting, querying information, building with Cabal and even refactoring!
 
-* [Why Haskell on Emacs?](#why-haskell-on-emacs)
+Note that the support for Haskell is not provided by a monolithical extension, but rather by a set of them with different features and also with different sets of requirements. From my point of view, `haskell-mode` and `ghc-mod` are a must, and work fairly well together.
+
+## Index
+
 * [Intalling and setting up Emacs](#installing-and-setting-up-emacs)
+  * [Keeping packages up-to-date](#keeping-packages-up-to-date)
 * [`haskell-mode`](#haskell-mode)
   * [Non interactive commands](#non-interactive-commands)
   * [Interactive commands](#interactive-commands)
@@ -9,17 +13,13 @@
 * [`ghc-mod`](#ghc-mod)
   * [Insertion commands](#insertion-commands)
   * [Working with holes](#working-with-holes)
-  * [Completion with `company-mode`](#completion-with-company-mode)
+  * [Completion with `company-ghc`](#completion-with-company-ghc)
   * [Refactoring with HaRe](#refactoring-with-hare)
 * [`structured-haskell-mode`](#structured-haskell-mode)
 * [Other niceties](#other-niceties)
 * [Summary](#summary)
-
-# Why Haskell on Emacs?
-
-Emacs is a text editor with an amazing support for extensions. Many people have built add-ons for Emacs to deal with everything from e-mail to version control or agenda planning, but it excels in providing good support for programming. Haskell has actually an amazing support, which integrates highlighting, querying information, building with Cabal and even refactoring!
-
-Note that the support for Haskell is not provided by a monolithical extension, but rather by a set of them with different features and also with different sets of requirements. From my point of view, `haskell-mode` and `ghc-mod` are a must, and work fairly well together.
+  * [List of key bindings](#list-of-key-bindings)
+  * [Installing all packages](#installing-all-packages)
 
 # Installing and setting up Emacs
 
@@ -38,6 +38,7 @@ Ok, let's move on with the configuration. In the file that has just been open, p
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
 ```
 What this configuration is doing is adding a new repository of packages. These repositories those places where the integrated Emacs package manager looks for new extensions. In this case, we add the (MELPA)[http://melpa.milkbox.net/] repository, which provides the packages mentiones throughout this article.
 
@@ -48,6 +49,12 @@ A piece of advice: if you are used to the shortcuts `C-c`, `C-x`, `C-v` and `C-z
 (cua-mode 1)
 ```
 to your Emacs initialization file. This will make transitioning to Emacs much easier (or at least, it did for me!).
+
+## Keeping packages up-to-date
+
+One nice thing about using the integrated Emacs package manager is that you can easily upgrade your installed packages to the latest version. To do so, go to the full package view by issuing `M-x package-list-packages`. You will get a list of all packages that you many install from MELPA. The first thing to do is refreshing that list to the latest version, something you can do by either pressing `r` or going to the _Package_ menu and selecting _Refresh Package List_.
+
+Now Emacs knows of all latest versions. The next step is marking all the upgradeable packages to be installed. You can do so via the _Package_ menu, in _Mark Upgradeable Packages_, or just pressing `U`. Finally, you need to execute the install plan either from the same menu, choosing the _Execute Actions_ item, or pressing `x`. Emacs will ask for confirmation, and will then download and install the new versions and remove the previous ones. Restart Emacs to allow the changes to make effect.
 
 # `haskell-mode`
 
@@ -258,6 +265,36 @@ You can split on every algebraic data type, be it from a library or defined in y
 
 Another task where `ghc-mod` adds some niceties to `haskell-mode` is indentation of blocks. By using `C-c <` and `C-c >` you can indent a region less or more, respectively, respecting Haskell layout rules. Note that below we discuss `structured-haskell-mode`, which provides a more powerful way to deal with Haskell code respecting the scoping and indentation rules.
 
+## Completion with `company-ghc`
+
+As stated above, `ghc-mod` provides a simple completion mechanism with `Esc Tab`: it uses an integrated feature of Emacs, called the minibuffer, which is not very featureful. Instead, you can add [`company-ghc`](https://github.com/iquiw/company-ghc) to your mix and get nicer graphical completion features.
+
+![`company-ghc` in action](https://github.com/iquiw/company-ghc/blob/master/images/doc-buffer.png)
+
+In order to get `company-ghc`, you first need to install it using the package manager. As a reminder, press `M-x package-install` and when asked, tell the system to install `company-ghc`.
+
+The `company-ghc` name comes from the fact that it makes use of [`company-mode`](http://company-mode.github.io/), a Emacs minor mode which helps building completion features. Note that the package manager takes care that `company-mode` is also installed when doing so for `company-ghc`, so you don need to worry about that.
+
+There are two ways to enable `company-mode` for Emacs. The first one is enabling it for all types of files. Note that this will show completion in every other kind of file in your system, so it may not be what you wanted. To have completions via `company-mode` globally, add to your configuration file the following lines:
+```lisp
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+```
+Another possibility is using `company-mode` only in Haskell files. To do so, you should add instead:
+```lisp
+(require 'company)
+(add-hook 'haskell-mode-hook 'company-mode)
+```
+In any case, you need to instruct `company-mode` to get completions from `ghc-mod` by adding at the end:
+```lisp
+(add-to-list 'company-backends 'company-ghc)
+(custom-set-variables '(company-ghc-show-info t))
+```
+
+Now, the moment for magic has come! Restart Emacs and open any Haskell file. Write the first three letters of a function name, like `spl`, and wait a moment. A menu with possible completions should appear: you can move between possibilities using arrows, and select something to insert with Enter. This works not only with functions, but also with module names, and even language extensions.
+
+If you took some time to install and download the data for Hoogle, a nice extra comes bundled with `company-ghc`. While navigating through the completion possibilities, you can press `F1` and get the documentation for the corresponding element. The information will disappear once you chosse an option. 
+
 ## Working with holes
 
 If you are using `ghc-mod` on GHC 7.8 or greater, and ran the code generation and splitting, you may have noticed that some strange elements starting with an underscore appear. These are *holes*, the way in which to tell the compiler that you know that an expression is missing, but still want it to tell you about possible errors or warning. The nice thing is that GHC spits out a lot of information about each hole in a file, and `ghc-mod` benefits from that.
@@ -291,8 +328,6 @@ maybeMap (Just x) f = _maybeMap_body
 If you press `C-c C-a` in each of the holes, several options for the code to be written there will be shown, including `Nothing` in the first case, and `Nothing` and `Just x` in the second case. You just need to select the code you want to include from a list, and it will be automatically completed. Note that this functionality becomes very handy when you need to work with expressions involving currying and tupling, because it takes care of obtaining a correctly-typed expression for you.
 
 Note that in order to prevent non-termination, automatic completion will not look for recursive definitions. However, you can still take advantage of `ghc-mod` by refining those places where recursion is needed, and then using automatic completion for simpler holes.
-
-## Completion with `company-mode`
 
 ## Refactoring with HaRe
 
@@ -357,7 +392,7 @@ There are tons of other packages available for Emacs. Without any further intent
 
 The first one is [`rainbow-delimiters`](https://github.com/jlr/rainbow-delimiters). Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a warning, red color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
 ```lisp
-(require 'rainbow-delimiters
+(require 'rainbow-delimiters)
 (global-rainbow-delimiters-mode)
 ```
 
@@ -396,6 +431,7 @@ Key binding                       | Description
 `M-t`                             | perform case split
 `C-c <`                           | indent region shallower (`ghc-mod`)
 `C-c >`                           | indent region deeper (`ghc-mod`)
+wait                              | show completions (`company-ghc`)
 `C-c M-n`                         | go to next hole
 `C-c M-p`                         | go to previous hole
 `C-c C-f`                         | refine hole
@@ -412,4 +448,4 @@ This is the Haskell part of the modes using Cabal:
 cabal update
 cabal install hasktags stylish-haskell present ghc-mod hlint hoogle structured-haskell-mode
 ```
-The Emacss packages to be installed using `M-x package-install` are: `haskell-mode`, `ghc`, `shm`
+The Emacs packages to be installed using `M-x package-install` are: `haskell-mode`, `ghc`, `shm`

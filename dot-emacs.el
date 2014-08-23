@@ -2,6 +2,7 @@
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
 
 ; Enable Windows-like bindings
 (cua-mode 1)
@@ -9,7 +10,6 @@
 ; Make Emacs look in Cabal directory for binaries
 (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
 (add-to-list 'exec-path "~/.cabal/bin")
-
 
 ; HASKELL-MODE
 ; ------------
@@ -60,3 +60,15 @@
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
+; COMPANY-GHC
+; -----------
+
+; Enable company-mode
+(require 'company)
+; Use company in Haskell buffers
+; (add-hook 'haskell-mode-hook 'company-mode)
+; Use company in all buffers
+(add-hook 'after-init-hook 'global-company-mode)
+
+(add-to-list 'company-backends 'company-ghc)
+(custom-set-variables '(company-ghc-show-info t))
