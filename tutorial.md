@@ -44,19 +44,23 @@ OK, let's move on with the configuration. In the file that has just been open, p
 ```
 What this configuration is doing is adding a new repository of packages. These repositories those places where the integrated Emacs package manager looks for new extensions. In this case, we add the [MELPA](http://melpa.milkbox.net/) repository, which provides the packages mentioned throughout this article.
 
-To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows and Linux, and Command in Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes. Now you need to restart Emacs to get your new configuration running, so press `C-x C-c` to exit and then open Emacs again.
+To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows and Linux, and Command in Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes.
 
-A piece of advice: some of the common shortcuts in graphical interfaces are different within Emacs. For example, cut, copy and paste are  `C-w`, `M-w` and `C-y` respectively. I suggest to take some time and learn these new commands, because they integrate very tightly with the Emacs workflow. However, if you are a newcomer and want to follow this tutorial with the key bindings found in other text editors, you can change the Emacs default to those by adding:
+With the changes saved, they'll be applied next time you open Emacs, and every time thereafter. But you don't need to restart Emacs right now in order to apply them in your current session! That's just a snippet of Emacs Lisp, after all, and you can run it like any other. To do so, press `M-x`, then write `eval-buffer` at the prompt, and finally push Enter. Now your Emacs knows about the MELPA package repository.
+
+Wait, wait! What is this `eval-buffer` thing? It's an example of an Emacs _extended command_, and indeed most things that Emacs can do, via keystrokes or menu items or toolbar buttons or all of the above, can also be done in this way. It's basically like having a command line right there in your editor, and it's an extremely useful thing; there's no need to worry overmuch about it right now, but do keep it in mind, especially when you discover a command that you don't use often enough to find it worth binding to a keystroke, but like to have handy when you do need it. Onward!
+
+Speaking of keystrokes, a piece of advice: some of the common shortcuts in graphical interfaces are different within Emacs. For example, cut, copy and paste are  `C-w`, `M-w` and `C-y` respectively. I suggest to take some time and learn these new commands, because they integrate very tightly with the Emacs workflow. However, if you are a newcomer and want to follow this tutorial with the key bindings found in other text editors, you can change the Emacs default to those by adding:
 ```lisp
 (cua-mode 1)
 ```
-to your Emacs initialization file. This helped me a lot in my transition to Emacs!.
+to your Emacs initialization file. This helped me a lot in my transition to Emacs!
 
 ### Keeping packages up-to-date
 
 One nice thing about using the integrated Emacs package manager is that you can easily upgrade your installed packages to the latest version. To do so, go to the full package view by issuing `M-x package-list-packages`. You will get a list of all packages that you many install from MELPA. The first thing to do is refreshing that list to the latest version, something you can do by either pressing `r` or going to the _Package_ menu and selecting _Refresh Package List_.
 
-Now Emacs knows of all latest versions. The next step is marking all the upgradeable packages to be installed. You can do so via the _Package_ menu, in _Mark Upgradeable Packages_, or just pressing `U`. Finally, you need to execute the install plan either from the same menu, choosing the _Execute Actions_ item, or pressing `x`. Emacs will ask for confirmation, and will then download and install the new versions and remove the previous ones. Restart Emacs to allow the changes to make effect.
+Now Emacs knows of all latest versions. The next step is marking all the upgradeable packages to be installed. You can do so via the _Package_ menu, in _Mark Upgradeable Packages_, or just pressing `U`. Finally, you need to execute the install plan either from the same menu, choosing the _Execute Actions_ item, or pressing `x`. Emacs will ask for confirmation, and will then download and install the new versions and remove the previous ones. Since some of these changes affect parts of Emacs which can't be modified within a running session, you will want to restart Emacs after the package update is complete, in order to avoid the random brokenness which may otherwise result.
 
 ## `haskell-mode`
 
@@ -72,7 +76,7 @@ In order to use `haskell-mode`, you need to select one of the three [indentation
   * Open your personal configuration file. Remember, to do so press `M-:`, then write `(find-file user-init-file)` and finally press Enter.
   * Add a new line containing `(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)`.
   * Save the file with `C-x C-s`.
-  * Restart Emacs.
+  * Apply the changes with `M-x eval-buffer RET`, or restart Emacs.
 
 It is time to open a Haskell file! You can do it by issuing `C-x C-f` and then writing the path to either a new or an existing file. It is required that the extension is `.hs` or `.lhs` for Emacs to recognize that it is a Haskell file and enable the newly installed `haskell-mode`.
 
@@ -91,7 +95,7 @@ The first thing it can do is help with `import`s. If you issue the command `M-x 
 (add-hook 'haskell-mode-hook
           (lambda () (define-key haskell-mode-map [f8] 'haskell-navigate-imports)))
 ```
-After restarting Emacs for your new configuration to apply, pressing `F8` moves you to the import section. But this is not enough, `haskell-mode` can also sort and align your import sections nicely. This is available in the key binding `C-c C-.`
+Once you've applied your changes via `M-x eval-buffer RET`, pressing `F8` moves you to the import section. (`RET` is how Emacs keybindings represent the Enter or Return key.) But this is not enough, `haskell-mode` can also sort and align your import sections nicely. This is available in the key binding `C-c C-.`
 
 In addition to going to `import` sections, `haskell-mode` can navigate to any other definition in the file. However, to get this working you need to install an extra program called `hasktags` and enable the feature in Emacs. As you may know, the installation of Haskell libraries and tools is centralized via a tool called Cabal which comes along with the Haskell platform or the GHC compiler. To install `hasktags`, open a terminal and execute the commands:
 ```
@@ -147,7 +151,7 @@ A piece of advice: if you are using a modern version of Cabal (more than 1.18), 
 ```lisp
 (custom-set-variables '(haskell-process-type 'cabal-repl))
 ```
-to your personal configuration file.
+to your personal configuration file. As always, once you're done editing this file, save it and `M-x eval-buffer RET` to apply the changes in your running Emacs session.
 
 In order to use the rest of the features in `haskell-mode`, you need to establish a connection with an interpreter, which can be then queried for information about your file. This is called *loading a file*, and it's done by running `C-c C-l` in the file. You will be asked about the root of the Cabal project, which should be auto-configured for you anyway, and then you will get a interpreter window with a `λ>` prompt.
 
@@ -196,7 +200,7 @@ Finally, you need to configure `haskell-mode` to initialize `ghc-mod` each time 
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 ```
-After restarting Emacs, each time you open a Haskell file, both `haskell-mode` and `ghc-mod` will be available for you.
+After you `M-x eval-buffer RET`, each time you open a Haskell file, both `haskell-mode` and `ghc-mod` will be available for you.
 
 The main difference between `haskell-mode` and `ghc-mod` is that the former needs you to load files explicitly, whereas `ghc-mod` runs always in the background, checking and giving suggestions directly in the file. On my daily routine, I use `ghc-mod` to highlight and query information about my file, and only move to `haskell-mode` interactive features for testing in the interpreter or working with Cabal.
 
@@ -295,7 +299,7 @@ In any case, you need to instruct `company-mode` to get completions from `ghc-mo
 (custom-set-variables '(company-ghc-show-info t))
 ```
 
-Now, the moment for magic has come! Restart Emacs and open any Haskell file. Write the first three letters of a function name, like `spl`, and wait a moment. A menu with possible completions should appear: you can move between possibilities using arrows, and select something to insert with Enter. This works not only with functions, but also with module names, and even language extensions.
+Now, the moment for magic has come! `M-x eval-buffer RET` and open any Haskell file. Write the first three letters of a function name, like `spl`, and wait a moment. A menu with possible completions should appear: you can move between possibilities using arrows, and select something to insert with Enter. This works not only with functions, but also with module names, and even language extensions.
 
 If you took some time to install and download the data for Hoogle, a nice extra comes bundled with `company-ghc`. While navigating through the completion possibilities, you can press `F1` and get the documentation for the corresponding element. The information will disappear once you choose an option. 
 
