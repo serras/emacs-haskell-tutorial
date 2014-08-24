@@ -46,11 +46,11 @@ What this configuration is doing is adding a new repository of packages. These r
 
 To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows and Linux, and Command in Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes. Now you need to restart Emacs to get your new configuration running, so press `C-x C-c` to exit and then open Emacs again.
 
-A piece of advice: if you are used to the shortcuts `C-c`, `C-x`, `C-v` and `C-z` to copy, cut, paste and undo in your previous text editor, you can change the Emacs default to those by adding:
+A piece of advice: some of the common shortcuts in graphical interfaces are different within Emacs. For example, cut, copy and paste are  `C-w`, `M-w` and `C-y` respectively. I suggest to take some time and learn these new commands, because they integrate very tightly with the Emacs workflow. However, if you are a newcomer and want to follow this tutorial with the key bindings found in other text editors, you can change the Emacs default to those by adding:
 ```lisp
 (cua-mode 1)
 ```
-to your Emacs initialization file. This will make transitioning to Emacs much easier (or at least, it did for me!).
+to your Emacs initialization file. This helped me a lot in my transition to Emacs!.
 
 ### Keeping packages up-to-date
 
