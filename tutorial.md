@@ -2,11 +2,11 @@
 
 Emacs is a text editor with an amazing support for extensions. Many people have built add-ons for Emacs to deal with everything from e-mail to version control or agenda planning, but it excels in providing good support for programming. Haskell has actually an amazing support, which integrates highlighting, querying information, building with Cabal and even refactoring!
 
-Note that the support for Haskell is not provided by a monolithical extension, but rather by a set of them with different features and also with different sets of requirements. From my point of view, `haskell-mode` and `ghc-mod` are a must, and work fairly well together.
+Note that the support for Haskell is not provided by a monolithic extension, but rather by a set of them with different features and also with different sets of requirements. From my point of view, `haskell-mode` and `ghc-mod` are a must, and work fairly well together.
 
 ## Index
 
-* [Intalling and setting up Emacs](#installing-and-setting-up-emacs)
+* [Installing and setting up Emacs](#installing-and-setting-up-emacs)
   * [Keeping packages up-to-date](#keeping-packages-up-to-date)
 * [`haskell-mode`](#haskell-mode)
   * [Non interactive commands](#non-interactive-commands)
@@ -31,18 +31,18 @@ The first thing you need to do is getting Emacs up and running in your computer.
   * In Mac OS, download [Emacs for OS X](http://emacsformacosx.com/), and install like any other application.
   * In Windows you can use [NTEmacs](http://ntemacs.sourceforge.net/).
 
-Given the huge range of extensibility that Emacs provides, instead of a graphical interface sometimes it becomes neccessary to change options by writing in your personal configuration file. So, open Emacs, press `M-:`, then write `(find-file user-init-file)` and finally push Enter. The configuration file will appear in front of you.
+Given the huge range of extensibility that Emacs provides, instead of a graphical interface sometimes it becomes necessary to change options by writing in your personal configuration file. So, open Emacs, press `M-:`, then write `(find-file user-init-file)` and finally push Enter. The configuration file will appear in front of you.
 
 Wait, wait! What is this `M-:` thingy means? This is how key combinations are represented in Emacs. In particular, `M` stands for the meta key, which means Alt in Linux or Windows systems, or the Option key if running in Mac OS X. When followed by a dash `-`, keys must be pressed together. Thus, you should press the meta key corresponding to your system and at the same time those corresponding to `:`. In my computer, this means `Alt+Shift+;`. The Emacs culture involves using many of these key combinations to perform operations in a fast way. But don't get scared, you always have the menu and the toolbar to look for commands, while you are learning the key combinations.
 
-Ok, let's move on with the configuration. In the file that has just been open, paste the following content:
+OK, let's move on with the configuration. In the file that has just been open, paste the following content:
 ```lisp
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 ```
-What this configuration is doing is adding a new repository of packages. These repositories those places where the integrated Emacs package manager looks for new extensions. In this case, we add the (MELPA)[http://melpa.milkbox.net/] repository, which provides the packages mentiones throughout this article.
+What this configuration is doing is adding a new repository of packages. These repositories those places where the integrated Emacs package manager looks for new extensions. In this case, we add the [MELPA](http://melpa.milkbox.net/) repository, which provides the packages mentioned throughout this article.
 
 To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows and Linux, and Command in Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes. Now you need to restart Emacs to get your new configuration running, so press `C-x C-c` to exit and then open Emacs again.
 
@@ -60,13 +60,13 @@ Now Emacs knows of all latest versions. The next step is marking all the upgrade
 
 ## `haskell-mode`
 
-Now that the repsitory is set up, installing `haskell-mode` is very easy:
+Now that the repository is set up, installing `haskell-mode` is very easy:
   * Press `M-x`, then write `package-refresh-contents`. In the bottom of your Emacs window you should see written `M-x package-refresh-contents`. Then press Enter: this will update the list of available packages in the repositories.
   * Press `M-x`, then write `package-install` and press Enter.
   * The bottom of the window will show the message to `Install package:`. Write `haskell-mode` and press Enter.
   * The Haskell mode will be downloaded and installed at your user directory.
 
-A piece of advice: most of the times you need to write something in Emacs, you can use Tab to autocomplete what you have written or show different possibilities. For example, if you press `M-x` and then write `package-` and press Tab, you will see all the commands related to package management popping up. If you then continue writting `r` and press Tab, the only option is `package-refresh-contents`, so it will be written for you ;)
+A piece of advice: most of the times you need to write something in Emacs, you can use Tab to autocomplete what you have written or show different possibilities. For example, if you press `M-x` and then write `package-` and press Tab, you will see all the commands related to package management popping up. If you then continue writing `r` and press Tab, the only option is `package-refresh-contents`, so it will be written for you ;)
 
 In order to use `haskell-mode`, you need to select one of the three [indentation modes](https://github.com/haskell/haskell-mode/wiki/Indentation) that it provides. The indentation mode specifies how Enter and Tab will be treated when working with Haskell code. The most advanced one is called `haskell-indentation`. To enable it:
   * Open your personal configuration file. Remember, to do so press `M-:`, then write `(find-file user-init-file)` and finally press Enter.
@@ -76,7 +76,7 @@ In order to use `haskell-mode`, you need to select one of the three [indentation
 
 It is time to open a Haskell file! You can do it by issuing `C-x C-f` and then writing the path to either a new or an existing file. It is required that the extension is `.hs` or `.lhs` for Emacs to recognize that it is a Haskell file and enable the newly installed `haskell-mode`.
 
-If you write Haskell code now, it should be syntax highligthed. If you press Tab in the file, `haskell-indentation` will take care of the layout rule and indent your code as needed. But let's use some time to look at the bottom of the screen: after the file name, you should notice that `Haskell Ind` is written. This tells you about the major and minor mode of this file, an important concept in Emacs:
+If you write Haskell code now, it should be syntax highlighted. If you press Tab in the file, `haskell-indentation` will take care of the layout rule and indent your code as needed. But let's use some time to look at the bottom of the screen: after the file name, you should notice that `Haskell Ind` is written. This tells you about the major and minor mode of this file, an important concept in Emacs:
   * A major mode, in this case `Haskell` defines the global way of interacting with the file. Each file has one major mode associated, usually related to the programming language in which the file is written.
   * In addition, any amount of minor modes can be enabled. Those define smaller interactions which complement the major one. In this case, we have `Ind`, related to indentation. In many cases, you have a great deal of minor modes enabled per file.
 
@@ -110,7 +110,7 @@ Then open the personal configuration file and add the following lines:
 ```
 The first two lines are needed to tell Emacs that it should look for the `hasktags` program in your Cabal binaries directory, which is not a location it already knows about. The next line is the one enabling `hasktags` itself. Finally, we bind the `M-.` key combination to jump to the definition of an element when you are over it.
 
-Note: in order to use the `M-.` command, your file needs to be in a Cabal project, or `haskell-mode` will ask to create a temporaty one.
+Note: in order to use the `M-.` command, your file needs to be in a Cabal project, or `haskell-mode` will ask to create a temporary one.
 
 The third feature that `haskell-mode` provides without interaction with an interpreter is formatting of code. This is done again by resorting to an external tool, which should be installed with:
 ```
@@ -198,11 +198,11 @@ Finally, you need to configure `haskell-mode` to initialize `ghc-mod` each time 
 ```
 After restarting Emacs, each time you open a Haskell file, both `haskell-mode` and `ghc-mod` will be available for you.
 
-The main difference between `haskell-mode` and `ghc-mod` is that the former needs you to load files explicitly, wheread `ghc-mod` runs always in the background, checking and giving suggestions directly in the file. On my daily routine, I use `ghc-mod` to highlight and query information about my file, and only move to `haskell-mode` interactive features for testing in the interpreter or working with Cabal.
+The main difference between `haskell-mode` and `ghc-mod` is that the former needs you to load files explicitly, whereas `ghc-mod` runs always in the background, checking and giving suggestions directly in the file. On my daily routine, I use `ghc-mod` to highlight and query information about my file, and only move to `haskell-mode` interactive features for testing in the interpreter or working with Cabal.
 
 In order to discover the features of `ghc-mod`, create a new empty file (for those newcomers to Emacs, this is achieved with `C-x C-f`). Now include the following content:
 ```haskell
-module Ejemplo2 where
+module Example where
 
 import Data.Ma
 
@@ -295,7 +295,7 @@ In any case, you need to instruct `company-mode` to get completions from `ghc-mo
 
 Now, the moment for magic has come! Restart Emacs and open any Haskell file. Write the first three letters of a function name, like `spl`, and wait a moment. A menu with possible completions should appear: you can move between possibilities using arrows, and select something to insert with Enter. This works not only with functions, but also with module names, and even language extensions.
 
-If you took some time to install and download the data for Hoogle, a nice extra comes bundled with `company-ghc`. While navigating through the completion possibilities, you can press `F1` and get the documentation for the corresponding element. The information will disappear once you chosse an option. 
+If you took some time to install and download the data for Hoogle, a nice extra comes bundled with `company-ghc`. While navigating through the completion possibilities, you can press `F1` and get the documentation for the corresponding element. The information will disappear once you choose an option. 
 
 ### Working with holes
 
@@ -312,7 +312,7 @@ Relevant bindings include
 ```
 Note that the previous output is cropped from the one given by GHC, which contains much more information, along with position of the identifiers. You will get all that information while working with `ghc-mod`.
 
-Of course, your aim should be to get rid of all holes. Type-oriented programming is a good-way to do so: realize part of the expression by looking at the type given in the hole message and add things to the hole until finished. To support this loop, `ghc-mod` includes a refine command, available at the key combination `C-c C-f`. When you press this over a hole, the system asks for an expression to refine with, and changes the hole with the expression given followed as many holes as neccessary to fulfill the corresponding type. For example, if in the second equation of `maybeMap`:
+Of course, your aim should be to get rid of all holes. Type-oriented programming is a good-way to do so: realize part of the expression by looking at the type given in the hole message and add things to the hole until finished. To support this loop, `ghc-mod` includes a refine command, available at the key combination `C-c C-f`. When you press this over a hole, the system asks for an expression to refine with, and changes the hole with the expression given followed as many holes as necessary to fulfill the corresponding type. For example, if in the second equation of `maybeMap`:
 ```haskell
 maybeMap (Just x) f = _maybeMap_body
 ```
@@ -335,7 +335,7 @@ Note that in order to prevent non-termination, automatic completion will not loo
 
 We have talked about changing the code on a file automatically, but none of these changes could be considered a real refactoring step. However, there is a tool called [HaRe](https://github.com/alanz/HaRe), which is integrates with `ghc-mod` and provides those features.
 
-Note: HaRe does not work at the moment of writing on GHC 7.8 nor its package is yet uploaded to MELPA. This tutorial will be updated with the entire installation procedure when those problems are fixed. Until now, follow the instuctions in the [official webpage](https://github.com/alanz/HaRe) up to the first block on Emacs integration.
+Note: HaRe does not work at the moment of writing on GHC 7.8 nor its package is yet uploaded to MELPA. This tutorial will be updated with the entire installation procedure when those problems are fixed. Until now, follow the instructions in the [official webpage](https://github.com/alanz/HaRe) up to the first block on Emacs integration.
 
 HaRe must be loaded at the same moment in which `ghc-mod` is. To do so, open your configuration file and change the line reading:
 ```lisp
@@ -351,7 +351,7 @@ The most common case for refactoring is renaming. This is done by issuing the co
 
 ## `structured-haskell-mode`
 
-Working with Haskell is usually wuite aesthetically appealing because of the layout rule (remember that this rule is the one delimiting the blocks and scopes in Haskell code). However, maintaining the rule can become cumbersome after some time, especially if you are editing something in an inner part of your syntax, which makes the rest of the block become unaligned.
+Working with Haskell is usually quite aesthetically appealing because of the layout rule (remember that this rule is the one delimiting the blocks and scopes in Haskell code). However, maintaining the rule can become cumbersome after some time, especially if you are editing something in an inner part of your syntax, which makes the rest of the block become unaligned.
 
 To handle Haskell code in a way that respects Haskell layout rule and conventions, we have [`structured-haskell-mode`](https://github.com/chrisdone/structured-haskell-mode), in short SHM.
 
@@ -404,7 +404,7 @@ Finally, you may want to change the default color scheme in Emacs. From version 
 
 ## Summary
 
-An Emacs configuration file with all the features dicussed in this article can be found [in this repository](https://github.com/serras/emacs-haskell-tutorial/blob/master/dot-emacs.el). Depending on your current configuration, you may need to change some of the values from the ones shown in that file.
+An Emacs configuration file with all the features discussed in this article can be found [in this repository](https://github.com/serras/emacs-haskell-tutorial/blob/master/dot-emacs.el). Depending on your current configuration, you may need to change some of the values from the ones shown in that file.
 
 ### List of key bindings
 
