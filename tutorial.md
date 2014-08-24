@@ -88,8 +88,8 @@ Before continuing, note that `haskell-mode` has many more features and options t
 
 The first thing it can do is help with `import`s. If you issue the command `M-x haskell-navigate-imports`, the editor will be focused on each of the import blocks in your file. Note that given the usefulness of this feature, the [`haskell-mode` wiki](https://github.com/haskell/haskell-mode/wiki/Import-management) suggests binding the `F8` key combination to run this command, by adding to your personal configuration file the following line:
 ```lisp
-(add-hook 'haskell-mode-hook
-          (lambda () (define-key haskell-mode-map [f8] 'haskell-navigate-imports)))
+(eval-after-load 'haskell-mode
+          '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
 ```
 After restarting Emacs for your new configuration to apply, pressing `F8` moves you to the import section. But this is not enough, `haskell-mode` can also sort and align your import sections nicely. This is available in the key binding `C-c C-.`
 
@@ -127,7 +127,7 @@ As usual, enabling a new feature in the Haskell mode involves changing some conf
   '(haskell-process-suggest-remove-import-lines t)
   '(haskell-process-auto-import-loaded-modules t)
   '(haskell-process-log t))
-(add-hook 'haskell-mode-hook (lambda () 
+(eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
   (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
@@ -135,7 +135,7 @@ As usual, enabling a new feature in the Haskell mode involves changing some conf
   (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
   (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
   (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
-(add-hook 'cabal-mode-hook (lambda () 
+(eval-after-load 'haskell-cabal '(progn
   (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
   (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-ode-clear)
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
