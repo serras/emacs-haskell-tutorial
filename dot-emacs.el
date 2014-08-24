@@ -21,12 +21,8 @@
 ;(add-hook 'haskell-mode-hook 'structured-haskell-mode)
 
 ; Add F8 key combination for going to imports block
-(add-hook 'haskell-mode-hook
-          (lambda () (define-key haskell-mode-map [f8] 'haskell-navigate-imports)))
-
-; Set up key combination for hasktags
-(add-hook 'haskell-mode-hook
-          (lambda () (define-key haskell-mode-map (kbd "M-.") 'haskell-mode-jump-to-def-or-tag)))
+(eval-after-load 'haskell-mode
+  '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
 
 (custom-set-variables
  ; Set up hasktags (part 2)
@@ -39,7 +35,7 @@
  '(haskell-process-type 'cabal-repl))
 
 ; Add key combinations for interactive haskell-mode
-(add-hook 'haskell-mode-hook (lambda () 
+(eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
   (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
@@ -47,7 +43,7 @@
   (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
   (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
   (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
-(add-hook 'cabal-mode-hook (lambda () 
+(eval-after-load 'haskell-cabal '(progn
   (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
   (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-ode-clear)
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
