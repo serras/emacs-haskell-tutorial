@@ -265,6 +265,8 @@ maybeMap (Just x) f = _maybeMap_body
 ```
 You can split on every algebraic data type, be it from a library or defined in your own files. Note that in the case of a data type defined as a record, the match will be written using record syntax with all the fields explicitly shown.
 
+Note: at the moment of writing, there is a bug in `ghc-mod` related to case splitting on fancy types, such as those using GADTs. If you run into problems in this respect, try installing `ghc-mod` directly from the [official repository](https://github.com/kazu-yamamoto/ghc-mod).
+
 Another task where `ghc-mod` adds some niceties to `haskell-mode` is indentation of blocks. By using `C-c <` and `C-c >` you can indent a region less or more, respectively, respecting Haskell layout rules. Note that below we discuss `structured-haskell-mode`, which provides a more powerful way to deal with Haskell code respecting the scoping and indentation rules.
 
 ### Completion with `company-ghc`
