@@ -404,6 +404,8 @@ Finally, you may want to change the default color scheme in Emacs. From version 
 
 ## Summary
 
+An Emacs configuration file with all the features dicussed in this article can be found [in this repository](https://github.com/serras/emacs-haskell-tutorial/blob/master/dot-emacs.el). Depending on your current configuration, you may need to change some of the values from the ones shown in that file.
+
 ### List of key bindings
 
 Key binding                       | Description
