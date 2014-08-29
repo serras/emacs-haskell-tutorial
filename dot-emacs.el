@@ -17,6 +17,9 @@
 ; Choose indentation mode
 ;; Use haskell-mode indentation
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;; Use hi2
+;(require 'hi2)
+;(add-hook 'haskell-mode-hook 'turn-on-hi2)
 ;; Use structured-haskell-mode
 ;(add-hook 'haskell-mode-hook 'structured-haskell-mode)
 

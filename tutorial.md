@@ -9,6 +9,7 @@ Note that the support for Haskell is not provided by a monolithic extension, but
 * [Installing and setting up Emacs](#installing-and-setting-up-emacs)
   * [Keeping packages up-to-date](#keeping-packages-up-to-date)
 * [`haskell-mode`](#haskell-mode)
+  * [Indentation modes](#indentation-modes)
   * [Non interactive commands](#non-interactive-commands)
   * [Interactive commands](#interactive-commands)
   * [Debugging](#debugging)
@@ -72,6 +73,10 @@ Now that the repository is set up, installing `haskell-mode` is very easy:
 
 A piece of advice: most of the times you need to write something in Emacs, you can use Tab to autocomplete what you have written or show different possibilities. For example, if you press `M-x` and then write `package-` and press Tab, you will see all the commands related to package management popping up. If you then continue writing `r` and press Tab, the only option is `package-refresh-contents`, so it will be written for you ;)
 
+Before continuing, note that `haskell-mode` has many more features and options that the ones we are going to talk about. You can learn more about them in [its wiki](https://github.com/haskell/haskell-mode/wiki).
+
+### Indentation modes
+
 In order to use `haskell-mode`, you need to select one of the three [indentation modes](https://github.com/haskell/haskell-mode/wiki/Indentation) that it provides. The indentation mode specifies how Enter and Tab will be treated when working with Haskell code. The most advanced one is called `haskell-indentation`. To enable it:
   * Open your personal configuration file. Remember, to do so press `M-:`, then write `(find-file user-init-file)` and finally press Enter.
   * Add a new line containing `(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)`.
@@ -84,7 +89,12 @@ If you write Haskell code now, it should be syntax highlighted. If you press Tab
   * A major mode, in this case `Haskell` defines the global way of interacting with the file. Each file has one major mode associated, usually related to the programming language in which the file is written.
   * In addition, any amount of minor modes can be enabled. Those define smaller interactions which complement the major one. In this case, we have `Ind`, related to indentation. In many cases, you have a great deal of minor modes enabled per file.
 
-Before continuing, note that `haskell-mode` has many more features and options that the ones we are going to talk about. You can learn more about them in [its wiki](https://github.com/haskell/haskell-mode/wiki).
+There is also an external package, called _haskell-indentation 2n try_, or simply [`hi2`](https://github.com/errge/hi2), which provides some changes from `haskell-indentation` to make it easier to use. The package is available in MELPA, so you can get it easily from the repository. As a reminder, installing a package is done by pressing `M-x`, then `package-install`, and finally writing the name of the package, in this case `hi2`. To activate the indentation mode for Haskell files, you need to insert the following text in the configuration file:
+```lisp
+(require 'hi2)
+(add-hook 'haskell-mode-hook 'turn-on-hi2)
+```
+Note that adding this extra indentation mode is not strictly necessary: in many cases, the built-in `haskell-indentation` works perfectly.
 
 ### Non interactive commands
 
