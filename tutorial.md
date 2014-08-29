@@ -141,15 +141,15 @@ As usual, enabling a new feature in the Haskell mode involves changing some conf
   '(haskell-process-log t))
 (eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-  (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+  (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
   (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
   (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
   (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
   (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
   (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 (eval-after-load 'haskell-cabal '(progn
-  (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
-  (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-ode-clear)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 ```
@@ -167,7 +167,7 @@ You will get an interpreter, except in the case you file has some errors that th
 ```
 Add {-# LANGUAGE BangPatterns #-} to the top of the file? (y or n)
 ```
-If you have errors that cannot be fixed automatically, the key combination ``C-` `` will navigate around them.
+If you have errors that cannot be fixed automatically, the key combination `C-c C-z` will navigate around them.
 
 Note that the interpreter is a normal Haskell one, so you can run any command you want in the `λ>` prompt. `haskell-mode` contains many small features which make it more appealing to look and traverse Haskell values. Most of them do not need any special setup, except for my favourite: presenting a variable. To enable it, install the `present` package:
 ```
@@ -427,7 +427,7 @@ Key binding                       | Description
 `M-.`                             | jump to definition
 `M-x haskell-mode-stylish-buffer` | format file
 `C-c C-l`                         | load file in interpreter
-``C-` ``                          | navigate errors in the file (`haskell-mode`, interactive)
+`C-c C-z`                         | navigate errors in the file (`haskell-mode`, interactive)
 `C-c C-n C-t`                     | show type of expression (`haskell-mode`, interactive)
 `C-c C-n C-t`                     | show info of expression (interactive)
 `C-c C-n C-c`                     | run `cabal build` (interactive)
