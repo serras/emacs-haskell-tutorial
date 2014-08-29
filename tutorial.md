@@ -120,7 +120,7 @@ Then open the personal configuration file and add the following lines:
 (add-to-list 'exec-path "~/.cabal/bin")
 (custom-set-variables '(haskell-tags-on-save t))
 ```
-The first two lines are needed to tell Emacs that it should look for the `hasktags` program in your Cabal binaries directory, which is not a location it already knows about. The next line is the one enabling `hasktags` itself. Finally, we bind the `M-.` key combination to jump to the definition of an element when you are over it.
+The first two lines are needed to tell Emacs that it should look for the `hasktags` program in your Cabal binaries directory, which is not a location it already knows about. The next line is the one enabling `hasktags` itself. From now on, you an use the `M-.` key combination to jump to the definition of an element when you are over it.
 
 Note: in order to use the `M-.` command, your file needs to be in a Cabal project, or `haskell-mode` will ask to create a temporary one.
 
