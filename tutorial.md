@@ -13,6 +13,7 @@ Note that the support for Haskell is not provided by a monolithic extension, but
   * [Non interactive commands](#non-interactive-commands)
   * [Interactive commands](#interactive-commands)
   * [Debugging](#debugging)
+  * [Further customization](#further-customization)
 * [`ghc-mod`](#ghc-mod)
   * [Insertion commands](#insertion-commands)
   * [Working with holes](#working-with-holes)
@@ -186,6 +187,12 @@ Once you have started the session, your Haskell file can be queried in even more
 ### Debugging
 
 `haskell-mode` integrates with the debugger found in the GHC interpreter from version 7 on. You can find the documentation about this feature in [its page in the official wiki](https://github.com/haskell/haskell-mode/wiki/Haskell-Interactive-Mode-Debugger).
+
+### Further customization
+
+Above we have configured many `haskell-mode` options by changing the personal configuration file by hand. This is a very powerful way to do so, but at the same time quite simple to put together from different snippets. However, I should tell that Emacs also have a _graphical_ interface to change many of the customization options. To open it, press `M-x customize`.
+
+At that point, you will be presented with a list of customization groups, each of which holds together options related to some aspect of the editor or some specific mode. In our case, you need to go to _Programming_, then _Languages_, and finally _Haskell_. Every option which you may configure through this interface comes with a small description. Feel free to look around and see you to make `haskell-mode` fit your own workflow.
 
 ## `ghc-mod`
 
