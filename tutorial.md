@@ -184,6 +184,15 @@ Once you have started the session, your Haskell file can be queried in even more
 
 `haskell-mode` also integrates with Cabal in many interesting ways. Issuing the command `C-c C-n C-c` will run `cabal build` in your project and show the output messages in the interpreter window. Or if you want to run any other command, use `C-c C-n c` and you will be asked for the command. So now you have a complete development environment which builds and highlights errors for you! Actually, the support for Cabal is even greater, because `haskell-mode` also integrates a mode for Cabal files.
 
+In some cases, loading the interactive mode will be turn to be very cumbersome. For a simpler interface, which still shows the errors in your file, but does not allow interaction with the code in a REPL, you can use `haskell-mode` compilation mode. To add a keybinding for it, include the following in your configuration file:
+```lisp
+(eval-after-load 'haskell-mode
+  '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
+(eval-after-load 'haskell-cabal
+  '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))
+```
+While editing a Haskell or Cabal file, you can press `C-c C-o` to invoke the compiler and look at the warnings and errors. Note that if you don't want to use the interactive features in `haskell-mode`, my suggestion is to rather use `ghc-mod`, which performs this compilation in the background for you, instead of having to explicitly invoke it.
+
 ### Debugging
 
 `haskell-mode` integrates with the debugger found in the GHC interpreter from version 7 on. You can find the documentation about this feature in [its page in the official wiki](https://github.com/haskell/haskell-mode/wiki/Haskell-Interactive-Mode-Debugger).
