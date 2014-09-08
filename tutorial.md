@@ -92,7 +92,6 @@ If you write Haskell code now, it should be syntax highlighted. If you press Tab
 
 There is also an external package, called _haskell-indentation 2n try_, or simply [`hi2`](https://github.com/errge/hi2), which provides some changes from `haskell-indentation` to make it easier to use. The package is available in MELPA, so you can get it easily from the repository. As a reminder, installing a package is done by pressing `M-x`, then `package-install`, and finally writing the name of the package, in this case `hi2`. To activate the indentation mode for Haskell files, you need to insert the following text in the configuration file:
 ```lisp
-(require 'hi2)
 (add-hook 'haskell-mode-hook 'turn-on-hi2)
 ```
 Note that adding this extra indentation mode is not strictly necessary: in many cases, the built-in `haskell-indentation` works perfectly.
