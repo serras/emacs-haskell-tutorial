@@ -477,6 +477,6 @@ wait                              | show completions (`company-ghc`)
 This is the Haskell part of the modes using Cabal:
 ```
 cabal update
-cabal install hasktags stylish-haskell present ghc-mod hlint hoogle structured-haskell-mode
+cabal install happy hasktags stylish-haskell present ghc-mod hlint hoogle structured-haskell-mode
 ```
 The Emacs packages to be installed using `M-x package-install` are `haskell-mode`, `ghc`, `company-ghc` and `shm`.
