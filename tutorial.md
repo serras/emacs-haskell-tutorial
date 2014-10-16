@@ -46,7 +46,7 @@ OK, let's move on with the configuration. In the file that has just been open, p
 ```
 What this configuration is doing is adding a new repository of packages. These repositories those places where the integrated Emacs package manager looks for new extensions. In this case, we add the [MELPA](http://melpa.milkbox.net/) repository, which provides the packages mentioned throughout this article.
 
-To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows and Linux, and Command in Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes.
+To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows, Linux, and Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes.
 
 With the changes saved, they'll be applied next time you open Emacs, and every time thereafter. But you don't need to restart Emacs right now in order to apply them in your current session! That's just a snippet of Emacs Lisp, after all, and you can run it like any other. To do so, press `M-x`, then write `eval-buffer` at the prompt, and finally push Enter. Now your Emacs knows about the MELPA package repository.
 
