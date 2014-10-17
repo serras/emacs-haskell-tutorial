@@ -8,6 +8,7 @@ Note that the support for Haskell is not provided by a monolithic extension, but
 
 * [Installing and setting up Emacs](#installing-and-setting-up-emacs)
   * [Keeping packages up-to-date](#keeping-packages-up-to-date)
+* [Haskell preliminaries](#haskell-preliminaries)
 * [`haskell-mode`](#haskell-mode)
   * [Indentation modes](#indentation-modes)
   * [Non interactive commands](#non-interactive-commands)
@@ -63,6 +64,15 @@ to your Emacs initialization file. This helped me a lot in my transition to Emac
 One nice thing about using the integrated Emacs package manager is that you can easily upgrade your installed packages to the latest version. To do so, go to the full package view by issuing `M-x package-list-packages`. You will get a list of all packages that you many install from MELPA. The first thing to do is refreshing that list to the latest version, something you can do by either pressing `r` or going to the _Package_ menu and selecting _Refresh Package List_.
 
 Now Emacs knows of all latest versions. The next step is marking all the upgradeable packages to be installed. You can do so via the _Package_ menu, in _Mark Upgradeable Packages_, or just pressing `U`. Finally, you need to execute the install plan either from the same menu, choosing the _Execute Actions_ item, or pressing `x`. Emacs will ask for confirmation, and will then download and install the new versions and remove the previous ones. Since some of these changes affect parts of Emacs which can't be modified within a running session, you will want to restart Emacs after the package update is complete, in order to avoid the random brokenness which may otherwise result.
+
+## Haskell preliminaries
+
+In order to use some of the Emacs packages presented here, you need to install Haskell packages in your computer. Many of them needs as prerrequisite the `happy` tool. However, in the current state, Cabal is not able to install tools needed to build a package automatically, so you need to do this previously. Thus, open a terminal and execute:
+```
+cabal update
+cabal install alex
+```
+The first command ensures that you have update information of the libraries and tools available in Hackage, the Haskell community repository. The second command takes care of downloading and installing `happy` itself.
 
 ## `haskell-mode`
 
