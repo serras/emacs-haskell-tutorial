@@ -9,6 +9,7 @@ Note that the support for Haskell is not provided by a monolithic extension, but
 * [Installing and setting up Emacs](#installing-and-setting-up-emacs)
   * [Keeping packages up-to-date](#keeping-packages-up-to-date)
 * [Haskell preliminaries](#haskell-preliminaries)
+  * [Dealing with Cabal hell](#dealing-with-cabal-hell)
 * [`haskell-mode`](#haskell-mode)
   * [Indentation modes](#indentation-modes)
   * [Non interactive commands](#non-interactive-commands)
@@ -73,6 +74,21 @@ cabal update
 cabal install alex
 ```
 The first command ensures that you have update information of the libraries and tools available in Hackage, the Haskell community repository. The second command takes care of downloading and installing `happy` itself.
+
+### Dealing with Cabal hell
+
+In some cases, Cabal will refuse to install some of the packages described in this section because of incompatibilities between versions. The point where you arrive when this happens is usually called _Cabal hell_. Alas, it is a hell from which you can escape.
+
+The main solution is simply wiping out your hold Cabal cache of packages, and start anew. This is done by running on a terminal:
+```
+rm -rf `find ~/.ghc -maxdepth 1 -type d`
+rm -rf ~/.cabal/lib
+rm -rf ~/.cabal/packages
+rm -rf ~/.cabal/share
+```
+Note that this will force reinstalling any dependencies of other packages that you use. But this is OK, since Cabal takes care of doing this automatically.
+
+In order to avoid going into hell again, my recommendation is using _sandboxes_ in your own projects. A sandbox creates an isolated environment where a specific set of packages is available, instead of installing everything in a global database. To get more information about sandboxes, you can visit [the corresponding section of the Cabal documentation](http://www.haskell.org/cabal/users-guide/installing-packages.html#developing-with-sandboxes).
 
 ## `haskell-mode`
 
