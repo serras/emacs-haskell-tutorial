@@ -39,6 +39,8 @@ Given the huge range of extensibility that Emacs provides, instead of a graphica
 
 Wait, wait! What is this `M-:` thingy means? This is how key combinations are represented in Emacs. In particular, `M` stands for the meta key, which means Alt in Linux or Windows systems, or the Option key if running in Mac OS X. When followed by a dash `-`, keys must be pressed together. Thus, you should press the meta key corresponding to your system and at the same time those corresponding to `:`. In my computer, this means `Alt+Shift+;`. The Emacs culture involves using many of these key combinations to perform operations in a fast way. But don't get scared, you always have the menu and the toolbar to look for commands, while you are learning the key combinations.
 
+Note also that it is important that you write the command as-is, including all parenthesis. This slightly strange syntax is due to Emacs using [Lisp](http://en.wikipedia.org/wiki/Emacs_Lisp) as its configuration language.
+
 OK, let's move on with the configuration. In the file that has just been open, paste the following content:
 ```lisp
 (require 'package)
