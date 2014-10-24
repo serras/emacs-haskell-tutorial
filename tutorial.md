@@ -144,8 +144,9 @@ The first command ensures that you have update information of the libraries and 
 
 Then open the personal configuration file and add the following lines:
 ```lisp
-(setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
-(add-to-list 'exec-path "~/.cabal/bin")
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
 (custom-set-variables '(haskell-tags-on-save t))
 ```
 The first two lines are needed to tell Emacs that it should look for the `hasktags` program in your Cabal binaries directory, which is not a location it already knows about. The next line is the one enabling `hasktags` itself. From now on, you can use the `M-.` key combination to jump to the definition of an element when you are over it.
@@ -238,8 +239,9 @@ cabal install ghc-mod
 ```
 The executable created must be on the search path of Emacs, as discussed before with other tools. Remember to include in your configuration file, if you haven't done it yet, the following lines:
 ```lisp
-(setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
-(add-to-list 'exec-path "~/.cabal/bin")
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
 ```
 The next step is installing the package in Emacs. To remind you of the process (similar to installing `haskell-mode`):
   * Press `M-x package-install`
