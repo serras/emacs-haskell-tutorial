@@ -8,8 +8,9 @@
 (cua-mode 1)
 
 ; Make Emacs look in Cabal directory for binaries
-(setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
-(add-to-list 'exec-path "~/.cabal/bin")
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
 
 ; HASKELL-MODE
 ; ------------
