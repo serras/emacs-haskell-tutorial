@@ -208,6 +208,8 @@ Now, in the interpreter window you can ask to present any value, even infinite o
 ```
 Instead of an infinite computation, what you get is an interactive value, where you can click to evaluate one step further.
 
+Note for newcomers to Emacs: apart from using the mouse and the menus, Emacs offers two powerful ways to move between buffers (editor instances). The easiest one is using `C-x o`, which cycles between all buffers which are currently shown on the screen. The other possibility is using `C-x b`, which asks for a buffer name (usually, the name of the file) and gives focus to it, even if it was not visible beforehand.
+
 Once you have started the session, your Haskell file can be queried in even more powerful ways. If you select or stay over an expression, you can query its type using `C-c C-n C-t` and extra information via `C-c C-n C-i`. In order to remember those key combinations, remember that `C-c` is used for all the commands in this article, `C-n` stands for i*n*teractive, and then `C-t` or `C-i` come from the first letter of `type` or `info`.
 
 `haskell-mode` also integrates with Cabal in many interesting ways. Issuing the command `C-c C-n C-c` will run `cabal build` in your project and show the output messages in the interpreter window. Or if you want to run any other command, use `C-c C-n c` and you will be asked for the command. So now you have a complete development environment which builds and highlights errors for you! Actually, the support for Cabal is even greater, because `haskell-mode` also integrates a mode for Cabal files.
