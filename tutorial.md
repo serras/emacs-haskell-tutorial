@@ -73,7 +73,7 @@ Now Emacs knows of all latest versions. The next step is marking all the upgrade
 In order to use some of the Emacs packages presented here, you need to install Haskell packages in your computer. Many of them needs as prerrequisite the `happy` tool. However, in the current state, Cabal is not able to install tools needed to build a package automatically, so you need to do this previously. Thus, open a terminal and execute:
 ```
 cabal update
-cabal install alex
+cabal install happy
 ```
 The first command ensures that you have update information of the libraries and tools available in Hackage, the Haskell community repository. The second command takes care of downloading and installing `happy` itself.
 
