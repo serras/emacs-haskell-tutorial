@@ -476,7 +476,7 @@ Key binding                       | Description
 `C-c C-l`                         | load file in interpreter
 `C-c C-z`                         | navigate errors in the file (`haskell-mode`, interactive)
 `C-c C-n C-t`                     | show type of expression (`haskell-mode`, interactive)
-`C-c C-n C-t`                     | show info of expression (interactive)
+`C-c C-n C-i`                     | show info of expression (interactive)
 `C-c C-n C-c`                     | run `cabal build` (interactive)
 `C-c C-n c`                       | run any other `cabal` command (interactive)
 `M-x haskell-debug`               | start debugger
