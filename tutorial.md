@@ -124,6 +124,12 @@ There is also an external package, called _haskell-indentation 2n try_, or simpl
 ```
 Note that adding this extra indentation mode is not strictly necessary: in many cases, the built-in `haskell-indentation` works perfectly.
 
+For re-indenting parts of your code in an appropiate style, you might look at the [`hindent`](https://github.com/chrisdone/hindent) from Chris Done. You can get it from MELPA, using the package name `hindent`. You will also need to install the corresponding package using `cabal install hindent` (wait for the next section to get more information about installation of Haskell libraries). Finally, in your configuration file add the following text:
+```lisp
+(add-hook 'haskell-mode-hook #'hindent-mode)
+```
+Then, by calling `M-q`, you can reformat the current declaration.
+
 ### Non interactive commands
 
 `haskell-mode` commands are divided into two groups, depending on whether they rely on an open interpreter session. To those who need such an interpreter, we will refer to as *interactive*. We have already seen that `haskell-mode` helps with indentation, but what else can it do in non interactive mode?
@@ -509,6 +515,6 @@ wait                              | show completions (`company-ghc`)
 This is the Haskell part of the modes using Cabal:
 ```
 cabal update
-cabal install happy hasktags stylish-haskell present ghc-mod hlint hoogle structured-haskell-mode
+cabal install happy hasktags stylish-haskell present ghc-mod hlint hoogle structured-haskell-mode hindent
 ```
-The Emacs packages to be installed using `M-x package-install` are `haskell-mode`, `ghc`, `company-ghc` and `shm`.
+The Emacs packages to be installed using `M-x package-install` are `haskell-mode`, `hindent` (if wanted), `ghc`, `company-ghc` and `shm`.
