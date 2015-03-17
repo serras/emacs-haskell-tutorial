@@ -1,6 +1,6 @@
 # Using Emacs for Haskell development
 
-Emacs is a text editor with an amazing support for extensions. Many people have built add-ons for Emacs to deal with everything from e-mail to version control or agenda planning, but it excels in providing good support for programming. Haskell has actually an amazing support, which integrates highlighting, querying information, building with Cabal and even refactoring!
+Emacs is a text editor with an amazing support for extensions. Many people have built add-ons for Emacs to deal with everything from e-mail to version control or agenda planning, but it excels in providing good support for programming. Emacs support for Haskell is actually amazingly good - it integrates highlighting, querying information, building with Cabal and even refactoring!
 
 Note that the support for Haskell is not provided by a monolithic extension, but rather by a set of them with different features and also with different sets of requirements. From my point of view, `haskell-mode` and `ghc-mod` are a must, and work fairly well together.
 
@@ -29,34 +29,34 @@ Note that the support for Haskell is not provided by a monolithic extension, but
 
 ## Installing and setting up Emacs
 
-The first thing you need to do is getting Emacs up and running in your computer. Note that you need at least version 23 (which is any case is quite old, the current one is 24.x). How to do this is easy in any operating system you use:
+The first thing you need to do is to get Emacs up and running on your computer. Note that you need at least version 23 (which is any case is quite old, the current one is 24.x). How to do this is easy in any operating system you use:
 
-  * In Linux, you usually need to install the `emacs` package from your package management system. In Ubuntu or Debian, you can do this graphically using either the Software Center or Synaptic, or using the command line by issuing `sudo apt-get install emacs`.
-  * In Mac OS, download [Emacs for OS X](http://emacsformacosx.com/), and install like any other application.
+  * In Linux, you usually need to install the `emacs` package from your package management system. In Ubuntu or Debian, you can do this graphically using either the Software Center or Synaptic, or using the command line by issuing the command `sudo apt-get install emacs`.
+  * In Mac OS X, download [Emacs for OS X](http://emacsformacosx.com/), and install like any other application.
   * In Windows you can use [NTEmacs](http://ntemacs.sourceforge.net/).
 
-Given the huge range of extensibility that Emacs provides, instead of a graphical interface sometimes it becomes necessary to change options by writing in your personal configuration file. So, open Emacs, press `M-:`, then write `(find-file user-init-file)` and finally push Enter. The configuration file will appear in front of you.
+Given the huge range of extensibility that Emacs provides, instead of a graphical interface sometimes it becomes necessary to change options by writing in your personal configuration file. So, open Emacs, press `M-:`, then write `(find-file user-init-file)` and finally press Enter. The configuration file will appear in front of you.
 
-Wait, wait! What is this `M-:` thingy means? This is how key combinations are represented in Emacs. In particular, `M` stands for the meta key, which means Alt in Linux or Windows systems, or the Option key if running in Mac OS X. When followed by a dash `-`, keys must be pressed together. Thus, you should press the meta key corresponding to your system and at the same time those corresponding to `:`. In my computer, this means `Alt+Shift+;`. The Emacs culture involves using many of these key combinations to perform operations in a fast way. But don't get scared, you always have the menu and the toolbar to look for commands, while you are learning the key combinations.
+Wait, wait! What does this `M-:` thing mean? This is how key combinations are represented in Emacs. In particular, `M` stands for the meta key, which means Alt in Linux or Windows systems, or the Option key if running on Mac OS X. When followed by a dash `-`, keys must be pressed together. Thus, you should press the meta key corresponding to your system and at the same time those corresponding to `:`. On my computer, this means `Alt+Shift+;`. The Emacs culture involves using many of these key combinations to perform operations in a fast way. But fear not - you always have the menu and the toolbar to look through for commands, while you are learning the key combinations.
 
-Note also that it is important that you write the command as-is, including all parenthesis. This slightly strange syntax is due to Emacs using [Lisp](http://en.wikipedia.org/wiki/Emacs_Lisp) as its configuration language.
+Note also that it is important that you write the command as-is, including all parentheses. This slightly strange syntax is due to Emacs using [Lisp](http://en.wikipedia.org/wiki/Emacs_Lisp) as its configuration language.
 
-OK, let's move on with the configuration. In the file that has just been open, paste the following content:
+OK, let's move on with the configuration. In the file that has just been opened, paste the following content:
 ```lisp
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 ```
-What this configuration is doing is adding a new repository of packages. These repositories those places where the integrated Emacs package manager looks for new extensions. In this case, we add the [MELPA](http://melpa.milkbox.net/) repository, which provides the packages mentioned throughout this article.
+What this configuration is doing is adding a new repository of packages. Repositories are places where the integrated Emacs package manager looks for new extensions. In this case, we add the [MELPA](http://melpa.milkbox.net/) repository, which provides the packages mentioned throughout this article.
 
-To save the contents of the file press `C-x C-s`. `C` is mapped to the Ctrl key in Windows, Linux, and Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes.
+To save the contents of the file, press `C-x C-s`. `C` is mapped to the Ctrl key in Windows, Linux, and Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes.
 
-With the changes saved, they'll be applied next time you open Emacs, and every time thereafter. But you don't need to restart Emacs right now in order to apply them in your current session! That's just a snippet of Emacs Lisp, after all, and you can run it like any other. To do so, press `M-x`, then write `eval-buffer` at the prompt, and finally push Enter. Now your Emacs knows about the MELPA package repository.
+With the changes saved, they'll be applied next time you open Emacs, and every time thereafter. But you don't need to restart Emacs right now in order to apply them in your current session! That's just a snippet of Emacs Lisp, after all, and you can run it like any other. To do so, press `M-x`, then write `eval-buffer` at the prompt, and finally press Enter. Now your Emacs knows about the MELPA package repository.
 
 Wait, wait! What is this `eval-buffer` thing? It's an example of an Emacs _extended command_, and indeed most things that Emacs can do, via keystrokes or menu items or toolbar buttons or all of the above, can also be done in this way. It's basically like having a command line right there in your editor, and it's an extremely useful thing; there's no need to worry overmuch about it right now, but do keep it in mind, especially when you discover a command that you don't use often enough to find it worth binding to a keystroke, but like to have handy when you do need it. Onward!
 
-Speaking of keystrokes, a piece of advice: some of the common shortcuts in graphical interfaces are different within Emacs. For example, cut, copy and paste are  `C-w`, `M-w` and `C-y` respectively. I suggest to take some time and learn these new commands, because they integrate very tightly with the Emacs workflow. However, if you are a newcomer and want to follow this tutorial with the key bindings found in other text editors, you can change the Emacs default to those by adding:
+Speaking of keystrokes, a piece of advice: some of the common shortcuts in graphical interfaces are different within Emacs. For example, cut, copy and paste are  `C-w`, `M-w` and `C-y` respectively. I suggest taking some time and learning these new commands, because they integrate very tightly with the Emacs workflow. However, if you are a newcomer and want to follow this tutorial with the key bindings found in other text editors, you can change the Emacs defaults to those by adding:
 ```lisp
 (cua-mode 1)
 ```
@@ -70,7 +70,7 @@ Now Emacs knows of all latest versions. The next step is marking all the upgrade
 
 ## Haskell preliminaries
 
-In order to use some of the Emacs packages presented here, you need to install Haskell packages in your computer. Many of them needs as prerrequisite the `happy` tool. However, in the current state, Cabal is not able to install tools needed to build a package automatically, so you need to do this previously. Thus, open a terminal and execute:
+In order to use some of the Emacs packages presented here, you need to install Haskell packages on your computer. Many of them need as a prerequisite the `happy` tool. However, in the current state, Cabal is not able to install tools needed to build a package automatically, so you need to do this first. Thus, open a terminal and execute:
 ```
 cabal update
 cabal install happy
@@ -79,9 +79,9 @@ The first command ensures that you have update information of the libraries and 
 
 ### Dealing with Cabal hell
 
-In some cases, Cabal will refuse to install some of the packages described in this section because of incompatibilities between versions. The point where you arrive when this happens is usually called _Cabal hell_. Alas, it is a hell from which you can escape.
+In some cases, Cabal will refuse to install some of the packages described in this section because of incompatibilities between versions. The point where you arrive when this happens is usually called _Cabal hell_. Fortunately, it is a hell from which you can escape.
 
-The main solution is simply wiping out your hold Cabal cache of packages, and start anew. This is done by running on a terminal:
+The main solution is simply wiping out your whole Cabal user cache of packages, and starting anew. This is done by running on a terminal:
 ```
 rm -rf `find ~/.ghc -maxdepth 1 -type d`
 rm -rf ~/.cabal/lib
@@ -90,17 +90,17 @@ rm -rf ~/.cabal/share
 ```
 Note that this will force reinstalling any dependencies of other packages that you use. But this is OK, since Cabal takes care of doing this automatically.
 
-In order to avoid going into hell again, my recommendation is using _sandboxes_ in your own projects. A sandbox creates an isolated environment where a specific set of packages is available, instead of installing everything in a global database. To get more information about sandboxes, you can visit [the corresponding section of the Cabal documentation](http://www.haskell.org/cabal/users-guide/installing-packages.html#developing-with-sandboxes).
+In order to avoid going into hell again, my recommendation is to use _sandboxes_ in your own projects. A sandbox creates an isolated environment where a specific set of packages is available, instead of installing everything in a global database. To get more information about sandboxes, you can visit [the corresponding section of the Cabal documentation](http://www.haskell.org/cabal/users-guide/installing-packages.html#developing-with-sandboxes).
 
 ## `haskell-mode`
 
 Now that the repository is set up, installing `haskell-mode` is very easy:
-  * Press `M-x`, then write `package-refresh-contents`. In the bottom of your Emacs window you should see written `M-x package-refresh-contents`. Then press Enter: this will update the list of available packages in the repositories.
+  * Press `M-x`, then write `package-refresh-contents`. In the bottom of your Emacs window you should see the text `M-x package-refresh-contents`. Then press Enter: this will update the list of available packages in the repositories.
   * Press `M-x`, then write `package-install` and press Enter.
-  * The bottom of the window will show the message to `Install package:`. Write `haskell-mode` and press Enter.
-  * The Haskell mode will be downloaded and installed at your user directory.
+  * The bottom of the window will show the message `Install package:`. Write `haskell-mode` and press Enter.
+  * The Haskell mode will be downloaded and installed under your user directory.
 
-A piece of advice: most of the times you need to write something in Emacs, you can use Tab to autocomplete what you have written or show different possibilities. For example, if you press `M-x` and then write `package-` and press Tab, you will see all the commands related to package management popping up. If you then continue writing `r` and press Tab, the only option is `package-refresh-contents`, so it will be written for you ;)
+A piece of advice: most of the times when you need to write something in Emacs, you can use Tab to autocomplete what you have written or show different possibilities. For example, if you press `M-x` and then write `package-` and press Tab, you will see all the commands related to package management popping up. If you then continue writing `r` and press Tab, the only option is `package-refresh-contents`, so it will be written for you ;)
 
 Before continuing, note that `haskell-mode` has many more features and options that the ones we are going to talk about. You can learn more about them in [its wiki](https://github.com/haskell/haskell-mode/wiki).
 
@@ -112,11 +112,11 @@ In order to use `haskell-mode`, you need to select one of the three [indentation
   * Save the file with `C-x C-s`.
   * Apply the changes with `M-x eval-buffer RET`, or restart Emacs.
 
-It is time to open a Haskell file! You can do it by issuing `C-x C-f` and then writing the path to either a new or an existing file. It is required that the extension is `.hs` or `.lhs` for Emacs to recognize that it is a Haskell file and enable the newly installed `haskell-mode`.
+It is time to open a Haskell file! You can do it by issuing `C-x C-f` and then writing the path to either a new or an existing file. It is required that the extension is `.hs` or `.lhs` for Emacs to recognize that it is a Haskell file and enable the newly-installed `haskell-mode`.
 
 If you write Haskell code now, it should be syntax highlighted. If you press Tab in the file, `haskell-indentation` will take care of the layout rule and indent your code as needed. But let's use some time to look at the bottom of the screen: after the file name, you should notice that `Haskell Ind` is written. This tells you about the major and minor mode of this file, an important concept in Emacs:
-  * A major mode, in this case `Haskell` defines the global way of interacting with the file. Each file has one major mode associated, usually related to the programming language in which the file is written.
-  * In addition, any amount of minor modes can be enabled. Those define smaller interactions which complement the major one. In this case, we have `Ind`, related to indentation. In many cases, you have a great deal of minor modes enabled per file.
+  * A major mode, in this case `Haskell`, defines the global way of interacting with the file. Each file has one major mode associated with it, usually related to the programming language in which the file is written.
+  * In addition, any amount of minor modes can be enabled. Those define smaller interactions which complement the major one. In this case, we have `Ind`, related to indentation. In many cases, you will have a great deal of minor modes enabled per file.
 
 There is also an external package, called _haskell-indentation 2n try_, or simply [`hi2`](https://github.com/errge/hi2), which provides some changes from `haskell-indentation` to make it easier to use. The package is available in MELPA, so you can get it easily from the repository. As a reminder, installing a package is done by pressing `M-x`, then `package-install`, and finally writing the name of the package, in this case `hi2`. To activate the indentation mode for Haskell files, you need to insert the following text in the configuration file:
 ```lisp
@@ -227,7 +227,7 @@ In some cases, loading the interactive mode will be turn to be very cumbersome. 
 (eval-after-load 'haskell-cabal
   '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))
 ```
-While editing a Haskell or Cabal file, you can press `C-c C-o` to invoke the compiler and look at the warnings and errors. Note that if you don't want to use the interactive features in `haskell-mode`, my suggestion is to rather use `ghc-mod`, which performs this compilation in the background for you, instead of having to explicitly invoke it.
+While editing a Haskell or Cabal file, you can press `C-c C-o` to invoke the compiler and look at the warnings and errors. Note that if you don't want to use the interactive features in `haskell-mode`, my suggestion is to instead use `ghc-mod`, which performs this compilation in the background for you, instead of you having to explicitly invoke it.
 
 ### Debugging
 
@@ -235,9 +235,9 @@ While editing a Haskell or Cabal file, you can press `C-c C-o` to invoke the com
 
 ### Further customization
 
-Above we have configured many `haskell-mode` options by changing the personal configuration file by hand. This is a very powerful way to do so, but at the same time quite simple to put together from different snippets. However, I should tell that Emacs also have a _graphical_ interface to change many of the customization options. To open it, press `M-x customize`.
+Above we have configured many `haskell-mode` options by changing the personal configuration file by hand. This is a very powerful way to do so, but at the same time quite simple to put together from different snippets. However, I should also mention that Emacs also has a _graphical_ interface to change many of the customization options. To open it, press `M-x customize`.
 
-At that point, you will be presented with a list of customization groups, each of which holds together options related to some aspect of the editor or some specific mode. In our case, you need to go to _Programming_, then _Languages_, and finally _Haskell_. Every option which you may configure through this interface comes with a small description. Feel free to look around and see you to make `haskell-mode` fit your own workflow.
+At that point, you will be presented with a list of customization groups, each of which groups together options related to some aspect of the editor or some specific mode. In our case, you need to go to _Programming_, then _Languages_, and finally _Haskell_. Every option which you may configure through this interface comes with a small description. Feel free to look around and see if you can make `haskell-mode` fit your own workflow.
 
 ## `ghc-mod`
 
@@ -275,10 +275,10 @@ f = Just
 ```
 And save the file. If `ghc-mod` is correctly loaded, you should see a red line under the line `import Data.Ma`, and a `!` sign at the left margin. This means that there is an error on this line. If you want to read the error, you have two options:
   * Move the mouse to the line, and the error will be shown in a tooltip.
-  * Navigate through the error using `M-n` or `Esc n` (both for the next error) and `M-p` or `Esc p` (both for the previous one). Then press `M-?` and the error will be shown in a new buffer.
-Correct the error by changing `Ma` to `Map` and save the file (remember, `C-x C-s`). The `ghc-mod` extension will check the file again (it does so only when saving a file) and now highlights the lines in a yellow color with a `?` symbol at the margin. This means that the lines have warnings associated with them. You can navigate through them as you did with errors. But note that warning will only be shown if no errors are present in the file.
+  * Navigate to the error using `M-n` or `Esc n` (both for the next error) and `M-p` or `Esc p` (both for the previous one). Then press `M-?` and the error will be shown in a new buffer.
+Correct the error by changing `Ma` to `Map` and save the file (remember, `C-x C-s`). The `ghc-mod` extension will check the file again (it does so only when saving a file) and now highlights the lines in a yellow color with a `?` symbol at the margin. This means that the lines have warnings associated with them. You can navigate through them as you did with errors. But note that warnings will only be shown if no errors are present in the file.
 
-Apart from the GHC compiler, there is another tools that helps writing good Haskell code, namely [HLint](http://community.haskell.org/~ndm/hlint/). HLint provides suggestions to write more idiomatic and concise code. To use it, you need to install the corresponding executable:
+Apart from the GHC compiler, there is another tools that helps writing good Haskell code, namely [HLint](http://community.haskell.org/~ndm/hlint/). HLint provides suggestions to help you write more idiomatic and concise code. To use it, you need to install the corresponding executable:
 ```
 cabal install hlint
 ```
@@ -297,9 +297,9 @@ Now, at any moment you can press `C-c C-h` and query Hoogle for the information 
 
 ### Insertion commands
 
-`ghc-mod` also helps you in writing your code. At any point, you can press either `Esc Tab` or `M-C-i` (both key combinations are equivalent) in a not-finished name and a list of possible completions will be shown. In the new buffer, select a completion and press Enter or click on it to insert it. Of course, in case only one possibility is available, it will be automatically inserted.
+`ghc-mod` also helps you to write your code. At any point, you can press either `Esc Tab` or `M-C-i` (both key combinations are equivalent) in a not-finished name and a list of possible completions will be shown. In the new buffer, select a completion and press Enter or click on it to insert it. Of course, in the case where only one possibility is available, it will be automatically inserted.
 
-In some cases, the problem is that you have used a name, but haven't included the corresponding module import. In many cases, even the compiler hints you which is the line to include. `ghc-mod` integrates into this feedback loop and by running issuing `M-C-m` or `Esc C-m` you can insert automatically the import. Note that this augments the functionality in `haskell-mode` by not needing to load the file to make these small fixes.
+In some cases, the problem is that you have used a name, but haven't included the corresponding module import. In many cases, the compiler even gives you a hint as to the line to include. `ghc-mod` integrates into this feedback loop, and by issuing `M-C-m` or `Esc C-m` you can automatically insert the import. Note that this augments the functionality in `haskell-mode` by not needing to load the file to make these small fixes.
 
 In many cases, you can derive the shape of a function or type class instance from the signature or declaration. So, it would be nice to have commands which given that information generates some initial skeleton. Well, `ghc-mod` includes it! As an example, include in your file a new data type and the declaration of a new instance:
 ```haskell
@@ -313,7 +313,7 @@ instance Eq ExampleType where
   x == y = _body
   x /= y = _body
 ```
-Code generation works also with function signatures. For example, let's write the signature of a `fmap`-like function for `Maybe`s:
+Code generation also works with function signatures. For example, let's write the signature of a `fmap`-like function for `Maybe`s:
 ```haskell
 maybeMap :: Maybe a -> (a -> b) -> Maybe b
 ```
@@ -323,7 +323,7 @@ maybeMap x f = _maybeMap_body
 ```
 Note that this code generation assumes that you want to generate functions its arguments fully stated. That is, if you prefer to write `maybeMap x = ...` and return a functional value, you have to write the skeleton yourself.
 
-This functionality does not finish here. Apart from code generation, `ghc-mod` can also generate the neccessary pattern matching, by splitting a variable into its possible constructors. For example, stay over the `x` on `maybeMap` and press `M-t` (to complete *t*emplate). Automagically, the code becomes:
+This functionality does not end there. Apart from code generation, `ghc-mod` can also generate the neccessary pattern matching, by splitting a variable into its possible constructors. For example, stay over the `x` on `maybeMap` and press `M-t` (to complete *t*emplate). Automagically, the code becomes:
 ```haskell
 maybeMap Nothing  f = _maybeMap_body
 maybeMap (Just x) f = _maybeMap_body
@@ -340,7 +340,7 @@ As stated above, `ghc-mod` provides a simple completion mechanism with `Esc Tab`
 
 In order to get `company-ghc`, you first need to install it using the package manager. As a reminder, press `M-x package-install` and when asked, tell the system to install `company-ghc`.
 
-The `company-ghc` name comes from the fact that it makes use of [`company-mode`](http://company-mode.github.io/), a Emacs minor mode which helps building completion features. Note that the package manager takes care that `company-mode` is also installed when doing so for `company-ghc`, so you don need to worry about that.
+The `company-ghc` name comes from the fact that it makes use of [`company-mode`](http://company-mode.github.io/), a Emacs minor mode which helps building completion features. Note that the package manager ensures that `company-mode` is also installed when installing `company-ghc`, so you don't need to worry about that.
 
 There are two ways to enable `company-mode` for Emacs. The first one is enabling it for all types of files. Note that this will show completion in every other kind of file in your system, so it may not be what you wanted. To have completions via `company-mode` globally, add to your configuration file the following lines:
 ```lisp
@@ -364,9 +364,9 @@ If you took some time to install and download the data for Hoogle, a nice extra 
 
 ### Working with holes
 
-If you are using `ghc-mod` on GHC 7.8 or greater, and ran the code generation and splitting, you may have noticed that some strange elements starting with an underscore appear. These are *holes*, the way in which to tell the compiler that you know that an expression is missing, but still want it to tell you about possible errors or warning. The nice thing is that GHC spits out a lot of information about each hole in a file, and `ghc-mod` benefits from that.
+If you are using `ghc-mod` on GHC 7.8 or greater, and ran the code generation and splitting, you may have noticed that some strange elements starting with an underscore appear. These are *holes*, the way in which to tell the compiler that you know that an expression is missing, but still want it to tell you about possible errors or warnings. The nice thing is that GHC spits out a lot of information about each hole in a file, and `ghc-mod` benefits from that.
 
-Holes are highlighted in files with a purple line below them. You can navigate between holes as you did with errors and warning, but also use specific key combinations for them. In this case, they are `C-c M-n` and `C-c M-p` (the same as for the errors and warning, but with `C-c` before them). If you do so, a new buffer appears with the information obtained from GHC:
+Holes are highlighted in files with a purple line below them. You can navigate between holes as you did with errors and warnings, but you can also use specific key combinations for them. In this case, they are `C-c M-n` and `C-c M-p` (the same as for the errors and warnings, but with `C-c` before them). If you do so, a new buffer appears with the information obtained from GHC:
 ```
 Found hole ‘_maybeMap_body’ with type: Data.Maybe.Maybe b
 Where: ‘b’ is a rigid type variable bound by
@@ -377,7 +377,7 @@ Relevant bindings include
 ```
 Note that the previous output is cropped from the one given by GHC, which contains much more information, along with position of the identifiers. You will get all that information while working with `ghc-mod`.
 
-Of course, your aim should be to get rid of all holes. Type-oriented programming is a good-way to do so: realize part of the expression by looking at the type given in the hole message and add things to the hole until finished. To support this loop, `ghc-mod` includes a refine command, available at the key combination `C-c C-f`. When you press this over a hole, the system asks for an expression to refine with, and changes the hole with the expression given followed as many holes as necessary to fulfill the corresponding type. For example, if in the second equation of `maybeMap`:
+Of course, your aim should be to get rid of all holes. Type-oriented programming is a good-way to do so: realize part of the expression by looking at the type given in the hole message and add things to the hole until you are finished. To support this loop, `ghc-mod` includes a refine command, available at the key combination `C-c C-f`. When you press this over a hole, the system asks for an expression to refine with, and replaces the hole with the expression given followed by as many holes as necessary to fulfill the corresponding type. For example, if in the second equation of `maybeMap`:
 ```haskell
 maybeMap (Just x) f = _maybeMap_body
 ```
@@ -400,9 +400,9 @@ Note that in order to prevent non-termination, automatic completion will not loo
 
 We have talked about changing the code on a file automatically, but none of these changes could be considered a real refactoring step. However, there is a tool called [HaRe](https://github.com/alanz/HaRe), which is integrates with `ghc-mod` and provides those features.
 
-Note: HaRe does not work at the moment of writing on GHC 7.8 nor its package is yet uploaded to MELPA. This tutorial will be updated with the entire installation procedure when those problems are fixed. Until now, follow the instructions in the [official webpage](https://github.com/alanz/HaRe) up to the first block on Emacs integration.
+Note: HaRe does not work at the moment of writing on GHC 7.8, and nor is its package yet uploaded to MELPA. This tutorial will be updated with the entire installation procedure when those problems are fixed. Until now, follow the instructions in the [official webpage](https://github.com/alanz/HaRe) up to the first block on Emacs integration.
 
-HaRe must be loaded at the same moment in which `ghc-mod` is. To do so, open your configuration file and change the line reading:
+HaRe must be loaded at the same time as `ghc-mod`. To do so, open your configuration file and change the line reading:
 ```lisp
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 ```
@@ -410,7 +410,7 @@ to read:
 ```lisp
 (add-hook 'haskell-mode-hook (lambda () (ghc-init) (hare-init)))
 ```
-After doing so, at every Haskell file you will see a new menu called *Refactor*, containing the current refactorings. In each menu item you can find the corresponding key combinations: notice that all start with `C-c C-r`. Since the list of refactorings grow each day, the refrain here from explaining all of them and focus on one specific case.
+After doing so, in every Haskell file you will see a new menu called *Refactor*, containing the current refactorings. In each menu item you can find the corresponding key combinations: notice that all start with `C-c C-r`. Since the list of refactorings are growing every day, we refrain here from explaining all of them and focus on one specific case.
 
 The most common case for refactoring is renaming. This is done by issuing the command `C-c C-r r` over the element to rename. The system asks for the new name, and then generates the refactoring script. Note that the refactoring is *not directly applied*. Instead, a new buffer shows the modifications that would be done in the files belonging to your project, and you can accept or decline them. This buffer works under the [`ediff` mode](https://www.gnu.org/software/emacs/manual/html_node/ediff/).
 
@@ -420,7 +420,7 @@ Working with Haskell is usually quite aesthetically appealing because of the lay
 
 To handle Haskell code in a way that respects Haskell layout rule and conventions, we have [`structured-haskell-mode`](https://github.com/chrisdone/structured-haskell-mode), in short SHM.
 
-Installing it is as simple as the rest of packages in this article, execute `M-x package-install` and select `shm`.  In addition, you need the `structured-haskell-mode` package from Hackage:
+Installing it is as simple as the rest of packages in this article: execute `M-x package-install` and select `shm`.  In addition, you need the `structured-haskell-mode` package from Hackage:
 ```
 cabal install structured-haskell-mode
 ```
@@ -455,15 +455,15 @@ My piece of advice is that SHM can be difficult to master at first. If you feel 
 
 ## Other niceties
 
-There are tons of other packages available for Emacs. Without any further intention, I would like to speak about three packages which I feel that integrate very well with Haskell programming.
+There are tons of other packages available for Emacs. Without prejudice to any of the others, I would like to speak about three packages which I feel that integrate very well with Haskell programming.
 
-The first one is [`rainbow-delimiters`](https://github.com/jlr/rainbow-delimiters). Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a warning, red color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
+The first one is [`rainbow-delimiters`](https://github.com/jlr/rainbow-delimiters). Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a red, warning color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
 ```lisp
 (require 'rainbow-delimiters)
 (global-rainbow-delimiters-mode)
 ```
 
-The second one is [Magit](http://magit.github.io/), which provides Git integration with Emacs. It is also available in MELPA, you it's only at one `M-x package-install` of you. One nice thing is that it shows the Git status of your file in the bottom of the buffer. Magit is a very big package, so the reader is suggested to look at its official webpage.
+The second one is [Magit](http://magit.github.io/), which provides Git integration with Emacs. It is also available in MELPA, and it's only one `M-x package-install` away. One nice thing is that it shows the Git status of your file at the bottom of the buffer. Magit is a very big package, so the reader is suggested to look at its official webpage.
 
 Finally, you may want to change the default color scheme in Emacs. From version 24 on, this is done very easily using its theme support. For example, I am quite a fan of the [Solarized themes](http://ethanschoonover.com/solarized). In MELPA you can find a lot of these and instructions on how to install them.
 
