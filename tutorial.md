@@ -194,11 +194,13 @@ A piece of advice: if you are using a modern version of Cabal (more than 1.18), 
 ```lisp
 (custom-set-variables '(haskell-process-type 'cabal-repl))
 ```
-to your personal configuration file. As always, once you're done editing this file, save it and `M-x eval-buffer RET` to apply the changes in your running Emacs session.
+to your personal configuration file. However, if your personal configuration file already _has_ a `custom-set-variables` command, you'll need to instead add a blank space and then `'(haskell-process-type 'cabal-repl)` before its closing parenthesis.
+
+As always, once you're done editing this file, save it and `M-x eval-buffer RET` to apply the changes to your running Emacs session.
 
 In order to use the rest of the features in `haskell-mode`, you need to establish a connection with an interpreter, which can be then queried for information about your file. This is called *loading a file*, and it's done by running `C-c C-l` in the file. You will be asked about the root of the Cabal project, which should be auto-configured for you anyway, and then you will get a interpreter window with a `λ>` prompt.
 
-You will get an interpreter, except in the case you file has some errors that the Haskell mode can automatically fix for you! For example, if you include a strictness pattern in your file, but do not enable the corresponding GHC extension, you will receive a message like:
+You will get an interpreter, except in the case that your file has some errors that the Haskell mode can automatically fix for you! For example, if you include a strictness pattern in your file, but do not enable the corresponding GHC extension, you will receive a message like:
 ```
 Add {-# LANGUAGE BangPatterns #-} to the top of the file? (y or n)
 ```
@@ -214,7 +216,7 @@ Now, in the interpreter window you can ask to present any value, even infinite o
 ```
 Instead of an infinite computation, what you get is an interactive value, where you can click to evaluate one step further.
 
-Note for newcomers to Emacs: apart from using the mouse and the menus, Emacs offers two powerful ways to move between buffers (editor instances). The easiest one is using `C-x o`, which cycles between all buffers which are currently shown on the screen. The other possibility is using `C-x b`, which asks for a buffer name (usually, the name of the file) and gives focus to it, even if it was not visible beforehand.
+Note for newcomers to Emacs: apart from using the mouse and the menus, Emacs offers two powerful ways to move between buffers (editor instances). The easiest one is using `C-x o`, which cycles between all buffers which are currently shown on the screen. The other possibility is using `C-x b`, which asks for a buffer name (usually, the name of the file) and gives focus to it, even if it was not visible beforehand. As with any Emacs prompt, you can just press Enter without entering any text to select the default one, if a default is shown in parentheses as part of the prompt.
 
 Once you have started the session, your Haskell file can be queried in even more powerful ways. If you select or stay over an expression, you can query its type using `C-c C-n C-t` and extra information via `C-c C-n C-i`. In order to remember those key combinations, remember that `C-c` is used for all the commands in this article, `C-n` stands for i*n*teractive, and then `C-t` or `C-i` come from the first letter of `type` or `info`.
 
