@@ -362,7 +362,7 @@ In any case, you need to instruct `company-mode` to get completions from `ghc-mo
 
 Now, the moment for magic has come! `M-x eval-buffer RET` and open any Haskell file. Write the first three letters of a function name, like `spl`, and wait a moment. A menu with possible completions should appear: you can move between possibilities using arrows, and select something to insert with Enter. This works not only with functions, but also with module names, and even language extensions.
 
-If you took some time to install and download the data for Hoogle, a nice extra comes bundled with `company-ghc`. While navigating through the completion possibilities, you can press `F1` and get the documentation for the corresponding element. The information will disappear once you choose an option. 
+If you took some time to install and download the data for Hoogle, a nice extra comes bundled with `company-ghc`. While navigating through the completion possibilities, you can press `F1` and get the documentation for the corresponding element. The information will disappear once you choose an option.
 
 ### Working with holes
 
@@ -462,7 +462,7 @@ There are tons of other packages available for Emacs. Without prejudice to any o
 The first one is [`rainbow-delimiters`](https://github.com/jlr/rainbow-delimiters). Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a red, warning color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
 ```lisp
 (require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
+(add-hook 'haskell-mode-hook #'rainbow-delimiters-mode)
 ```
 
 The second one is [Magit](http://magit.github.io/), which provides Git integration with Emacs. It is also available in MELPA, and it's only one `M-x package-install` away. One nice thing is that it shows the Git status of your file at the bottom of the buffer. Magit is a very big package, so the reader is suggested to look at its official webpage.
