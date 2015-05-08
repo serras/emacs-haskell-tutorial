@@ -1,7 +1,7 @@
 ; Add MELPA repository
 (require 'package)
 (add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (package-initialize)
 
 ; Enable Windows-like bindings

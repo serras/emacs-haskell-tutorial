@@ -45,10 +45,12 @@ OK, let's move on with the configuration. In the file that has just been opened,
 ```lisp
 (require 'package)
 (add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (package-initialize)
 ```
-What this configuration is doing is adding a new repository of packages. Repositories are places where the integrated Emacs package manager looks for new extensions. In this case, we add the [MELPA](http://melpa.milkbox.net/) repository, which provides the packages mentioned throughout this article.
+What this configuration is doing is adding a new repository of packages. Repositories are places where the integrated Emacs package manager looks for new extensions. In this case, we add the [MELPA Stable](http://stable.melpa.org/) repository, which provides the packages mentioned throughout this article.
+
+**Note:** there is also an [unstable MELPA repository](http://melpa.org), but we strongly advise to use the stable one.
 
 To save the contents of the file, press `C-x C-s`. `C` is mapped to the Ctrl key in Windows, Linux, and Mac OS X; and the fact that two key combinations are given separated by space means that you need to press `C-x` and then `C-s`, in separate keystrokes.
 
