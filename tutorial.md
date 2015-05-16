@@ -150,10 +150,17 @@ cabal install hasktags
 ```
 The first command ensures that you have update information of the libraries and tools available in Hackage, the Haskell community repository. The second command takes care of downloading and installing the `hasktags` program along with any dependencies.
 
-Then open the personal configuration file and add the following lines:
+Then open the personal configuration file and add the following lines if you are in Linux or Mac OS X:
 ```lisp
 (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
   (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
+(custom-set-variables '(haskell-tags-on-save t))
+```
+If you use a Windows system, you need to change the separator from `:` to `;`:
+```lisp
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path ";" (getenv "PATH")))
   (add-to-list 'exec-path my-cabal-path))
 (custom-set-variables '(haskell-tags-on-save t))
 ```
@@ -249,11 +256,18 @@ In contrast with `haskell-mode`, [`ghc-mod`](http://www.mew.org/~kazu/proj/ghc-m
 ```
 cabal install ghc-mod
 ```
-The executable created must be on the search path of Emacs, as discussed before with other tools. Remember to include in your configuration file, if you haven't done it yet, the following lines:
+The executable created must be on the search path of Emacs, as discussed before with other tools. Remember to include in your configuration file, if you haven't done it yet, the following lines when on a Linux or Mac OS X system:
 ```lisp
 (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
   (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
   (add-to-list 'exec-path my-cabal-path))
+```
+On Windows machines, the code is slightly different, a `:` becomes a `;`:
+```lisp
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path ";" (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
+(custom-set-variables '(haskell-tags-on-save t))
 ```
 The next step is installing the package in Emacs. To remind you of the process (similar to installing `haskell-mode`):
   * Press `M-x package-install`
