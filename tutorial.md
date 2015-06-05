@@ -150,21 +150,14 @@ cabal install hasktags
 ```
 The first command ensures that you have update information of the libraries and tools available in Hackage, the Haskell community repository. The second command takes care of downloading and installing the `hasktags` program along with any dependencies.
 
-Then open the personal configuration file and add the following lines if you are in Linux or Mac OS X:
+Then open the personal configuration file and add the following lines:
 ```lisp
 (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
-  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
+  (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
   (add-to-list 'exec-path my-cabal-path))
 (custom-set-variables '(haskell-tags-on-save t))
 ```
-If you use a Windows system, you need to change the separator from `:` to `;`:
-```lisp
-(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
-  (setenv "PATH" (concat my-cabal-path ";" (getenv "PATH")))
-  (add-to-list 'exec-path my-cabal-path))
-(custom-set-variables '(haskell-tags-on-save t))
-```
-The first two lines are needed to tell Emacs that it should look for the `hasktags` program in your Cabal binaries directory, which is not a location it already knows about. The next line is the one enabling `hasktags` itself. From now on, you can use the `M-.` key combination to jump to the definition of an element when you are over it.
+The first three lines are needed to tell Emacs that it should look for the `hasktags` program in your Cabal binaries directory, which is not a location it already knows about. The next line is the one enabling `hasktags` itself. From now on, you can use the `M-.` key combination to jump to the definition of an element when you are over it.
 
 Note: in order to use the `M-.` command, your file needs to be in a Cabal project, or `haskell-mode` will ask to create a temporary one.
 
