@@ -268,6 +268,12 @@ The next step is installing the package in Emacs. To remind you of the process (
   * Press `M-x package-install`
   * Write `ghc` as the name of the package to install
   * Et voilà!
+If you are using `ghc-mod` from another source than Hackage (e.g., Stackage), it is possible that the `ghc` package from the package manager may not work for you. In that case, it is better to rely on the files that come with the exact `ghc-mod` distribution that you are installing. For that, you need to include the following line in your configuration file:
+```lisp
+(add-to-list 'load-path "~/.cabal/share/ghc-mod-x.y.z")
+```
+where the `x.y.z` part correspond to the version of `ghc-mod` in your system.
+
 Finally, you need to configure `haskell-mode` to initialize `ghc-mod` each time you open a Haskell file. To do so, open your configuration file and insert:
 ```lisp
 (autoload 'ghc-init "ghc" nil t)
