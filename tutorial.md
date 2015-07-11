@@ -245,6 +245,8 @@ At that point, you will be presented with a list of customization groups, each o
 
 ## `ghc-mod`
 
+**Important note**: the current `ghc-mod` version in Hackage may not work correctly under GHC 7.10. [This GitHub issue](https://github.com/kazu-yamamoto/ghc-mod/issues/437) describes alternatives, including downloading the source code directly from the repo. In my opinion, the easiest path now is to remain with GHC 7.8 if possible.
+
 In contrast with `haskell-mode`, [`ghc-mod`](http://www.mew.org/~kazu/proj/ghc-mod/en/) needs an extra executable to work. It is available on Hackage, so you can install it by directly writing on a terminal:
 ```
 cabal install ghc-mod
