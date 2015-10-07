@@ -196,7 +196,11 @@ A piece of advice: if you are using a modern version of Cabal (more than 1.18), 
 ```lisp
 (custom-set-variables '(haskell-process-type 'cabal-repl))
 ```
-to your personal configuration file. However, if your personal configuration file already _has_ a `custom-set-variables` command, you'll need to instead add a blank space and then `'(haskell-process-type 'cabal-repl)` before its closing parenthesis.
+to your personal configuration file. If you are using [Stack](https://github.com/commercialhaskell/stack) as your build tool, you can also choose to use it for the REPL by writing instead:
+```lisp
+(custom-set-variables '(haskell-process-type 'stack-ghci))
+```
+In both cases, if your personal configuration file already _has_ a `custom-set-variables` command, you'll need to instead add a blank space and then `'(haskell-process-type 'chosen-process-type)` before its closing parenthesis.
 
 As always, once you're done editing this file, save it and `M-x eval-buffer RET` to apply the changes to your running Emacs session.
 
