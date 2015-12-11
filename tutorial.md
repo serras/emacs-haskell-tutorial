@@ -476,17 +476,30 @@ My piece of advice is that SHM can be difficult to master at first. If you feel 
 
 ## Other niceties
 
-There are tons of other packages available for Emacs. Without prejudice to any of the others, I would like to speak about three packages which I feel that integrate very well with Haskell programming.
+There are tons of other packages available for Emacs. Without prejudice to any of the others, I would like to speak about some packages which I feel that integrate very well with Haskell programming.
 
-The first one is [`rainbow-delimiters`](https://github.com/jlr/rainbow-delimiters). Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a red, warning color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
+* [`rainbow-delimiters`](https://github.com/jlr/rainbow-delimiters).
+
+Its goal is very simple: show each level of parenthesis or braces in a different color. In that way, you can easily spot until from point some expression scopes. Furthermore, if the delimiters do not match, the extra ones are shown in a red, warning color. To get it just install `rainbow-delimiters` using the Emacs package manager, and add to your configuration file:
+
 ```lisp
 (require 'rainbow-delimiters)
 (add-hook 'haskell-mode-hook #'rainbow-delimiters-mode)
 ```
 
-The second one is [Magit](http://magit.github.io/), which provides Git integration with Emacs. It is also available in MELPA, and it's only one `M-x package-install` away. One nice thing is that it shows the Git status of your file at the bottom of the buffer. Magit is a very big package, so the reader is suggested to look at its official webpage.
+* [Magit](http://magit.github.io/)
 
-Finally, you may want to change the default color scheme in Emacs. From version 24 on, this is done very easily using its theme support. For example, I am quite a fan of the [Solarized themes](http://ethanschoonover.com/solarized). In MELPA you can find a lot of these and instructions on how to install them.
+Magit which provides Git integration with Emacs. It is also available in MELPA, and it's only one `M-x package-install` away. One nice thing is that it shows the Git status of your file at the bottom of the buffer. Magit is a very big package, so the reader is suggested to look at its official webpage.
+
+* subword-mode
+
+This mode provides enables sub-word navigation. What this means is that you can use `M-f` and `M-b` to move between sub-words, in identifiers such as `reallyReallyBigName` or `really_really_big_name`. It is available as a part of Emacs, and can be enabled for Haskell files by adding the following to your configuration file:
+
+```lisp
+(add-hook 'haskell-mode-hook 'subword-mode)
+```
+
+* Finally, you may want to change the default color scheme in Emacs. From version 24 on, this is done very easily using its theme support. For example, I am quite a fan of the [Solarized themes](http://ethanschoonover.com/solarized). In MELPA you can find a lot of these and instructions on how to install them.
 
 ## Summary
 
