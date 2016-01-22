@@ -106,25 +106,11 @@ A piece of advice: most of the times when you need to write something in Emacs, 
 
 Before continuing, note that `haskell-mode` has many more features and options that the ones we are going to talk about. You can learn more about them in [its wiki](https://github.com/haskell/haskell-mode/wiki).
 
-### Indentation modes
-
-In order to use `haskell-mode`, you need to select one of the three [indentation modes](https://github.com/haskell/haskell-mode/wiki/Indentation) that it provides. The indentation mode specifies how Enter and Tab will be treated when working with Haskell code. The most advanced one is called `haskell-indentation`. To enable it:
-  * Open your personal configuration file. Remember, to do so press `M-:`, then write `(find-file user-init-file)` and finally press Enter.
-  * Add a new line containing `(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)`.
-  * Save the file with `C-x C-s`.
-  * Apply the changes with `M-x eval-buffer RET`, or restart Emacs.
-
 It is time to open a Haskell file! You can do it by issuing `C-x C-f` and then writing the path to either a new or an existing file. It is required that the extension is `.hs` or `.lhs` for Emacs to recognize that it is a Haskell file and enable the newly-installed `haskell-mode`.
 
-If you write Haskell code now, it should be syntax highlighted. If you press Tab in the file, `haskell-indentation` will take care of the layout rule and indent your code as needed. But let's use some time to look at the bottom of the screen: after the file name, you should notice that `Haskell Ind` is written. This tells you about the major and minor mode of this file, an important concept in Emacs:
+If you write Haskell code now, it should be syntax highlighted. If you press Tab in the file, `haskell-mode` will take care of the layout rule and indent your code as needed. But let's use some time to look at the bottom of the screen: after the file name, you should notice that `Haskell` is written. This tells you about the major mode of this file, an important concept in Emacs:
   * A major mode, in this case `Haskell`, defines the global way of interacting with the file. Each file has one major mode associated with it, usually related to the programming language in which the file is written.
-  * In addition, any amount of minor modes can be enabled. Those define smaller interactions which complement the major one. In this case, we have `Ind`, related to indentation. In many cases, you will have a great deal of minor modes enabled per file.
-
-There is also an external package, called _haskell-indentation 2n try_, or simply [`hi2`](https://github.com/errge/hi2), which provides some changes from `haskell-indentation` to make it easier to use. The package is available in MELPA, so you can get it easily from the repository. As a reminder, installing a package is done by pressing `M-x`, then `package-install`, and finally writing the name of the package, in this case `hi2`. To activate the indentation mode for Haskell files, you need to insert the following text in the configuration file:
-```lisp
-(add-hook 'haskell-mode-hook 'turn-on-hi2)
-```
-Note that adding this extra indentation mode is not strictly necessary: in many cases, the built-in `haskell-indentation` works perfectly.
+  * In addition, any amount of minor modes can be enabled. Those define smaller interactions which complement the major one. In many cases, you will have a great deal of minor modes enabled per file.
 
 For re-indenting parts of your code in an appropiate style, you might look at the [`hindent`](https://github.com/chrisdone/hindent) from Chris Done. You can get it from MELPA, using the package name `hindent`. You will also need to install the corresponding package using `cabal install hindent` (wait for the next section to get more information about installation of Haskell libraries). Finally, in your configuration file add the following text:
 ```lisp
