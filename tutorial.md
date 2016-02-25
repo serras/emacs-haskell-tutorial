@@ -11,7 +11,6 @@ Note that the support for Haskell is not provided by a monolithic extension, but
 * [Haskell preliminaries](#haskell-preliminaries)
   * [Dealing with Cabal hell](#dealing-with-cabal-hell)
 * [`haskell-mode`](#haskell-mode)
-  * [Indentation modes](#indentation-modes)
   * [Non interactive commands](#non-interactive-commands)
   * [Interactive commands](#interactive-commands)
   * [Debugging](#debugging)
