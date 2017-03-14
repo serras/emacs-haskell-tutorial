@@ -126,7 +126,7 @@ The first thing it can do is help with `import`s. If you issue the command `M-x 
 (eval-after-load 'haskell-mode
           '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
 ```
-Once you've applied your changes via `M-x eval-buffer RET`, pressing `F8` moves you to the import section. (`RET` is how Emacs keybindings represent the Enter or Return key.) But this is not enough, `haskell-mode` can also sort and align your import sections nicely. This is available in the key binding `C-c C-.`
+Once you've applied your changes via `M-x eval-buffer RET`, pressing `F8` moves you to the import section. (`RET` is how Emacs keybindings represent the Enter or Return key.) But this is not enough, `haskell-mode` can also sort and align your import sections nicely. This is available in the key binding `C-c C-,`
 
 In addition to going to `import` sections, `haskell-mode` can navigate to any other definition in the file. However, to get this working you need to install an extra program called `hasktags` and enable the feature in Emacs. As you may know, the installation of Haskell libraries and tools is centralized via a tool called Cabal which comes along with the Haskell platform or the GHC compiler. To install `hasktags`, open a terminal and execute the commands:
 ```
