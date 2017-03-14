@@ -494,7 +494,7 @@ An Emacs configuration file with all the features discussed in this article can 
 Key binding                       | Description
 ----------------------------------|-----------------------------------------------------------
 `F8`                              | jump to imports
-`C-c C-.`                         | sort and align imports
+`C-c C-,`                         | sort and align imports
 `M-.`                             | jump to definition
 `M-x haskell-mode-stylish-buffer` | format file
 `C-c C-l`                         | load file in interpreter
